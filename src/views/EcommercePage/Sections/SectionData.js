@@ -10,12 +10,8 @@ import {
 import Accordion from "components/Accordion/Accordion.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui icons
-import Edit from "@material-ui/icons/Edit";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceSections/latestOffersStyle.js";
 

@@ -2,7 +2,6 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -39,7 +38,6 @@ import CustomForm from "components/CustomForm/CustomForm";
 
 const CompanyDataForm = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { register, handleSubmit, watch, errors, control } = useForm({
     mode: "onBlur",
@@ -64,7 +62,7 @@ const CompanyDataForm = (props) => {
 
   const onSubmit = (data) => {
     dispatch(setCompanyData(data));
-    history.push("/results");
+    props.handleNext();
   };
 
   return (

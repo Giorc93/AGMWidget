@@ -20,14 +20,26 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import Button from "components/CustomButtons/Button.js";
 import Clearfix from "components/Clearfix/Clearfix.js";
-
-import { responseJSON } from "utils/responseJSON";
+// redux
+import {
+  selectQuotationResultJSON,
+  selectQuotationResultURL,
+} from "redux/features/QuotationForm/quotationResultSlice";
+// socket
+import { socket } from "utils/global";
+import { useSelector } from "react-redux";
+// JSON
+import { responseJSON } from 'utils/responseJSON';
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceSections/productsStyle.js";
 
 const useStyles = makeStyles(styles);
 
 export default function SectionProducts() {
+  const jsonData = useSelector(selectQuotationResultJSON);
+  const urlData = useSelector(selectQuotationResultURL);
+  const id = urlData.data.event_id;
+
   const {
     products: productos,
     attribute_groups,
@@ -35,13 +47,29 @@ export default function SectionProducts() {
     vehiculoInfo: vehicleInfo,
     asesor_Info: advisorInfo,
     agenciaInfo: agencyInfo,
-  } = responseJSON;
-  const products = Object.entries(productos);
+  } = jsonData.data;
+
+  const [products, setProducts] = React.useState(
+    Object.entries(productos).filter(
+      (product) => product[1].quotestage === "Created"
+    )
+  );
   const attributeGroups = Object.entries(attribute_groups);
   const attGroupArr = [];
   attributeGroups.map((el) => attGroupArr.push(el[1]));
   const [checked, setChecked] = React.useState([1, 9, 27]);
   const [priceRange, setPriceRange] = React.useState([500000, 1200000]);
+
+  const loadProducts = () => {
+    socket.on("update-quotes-io", (data) => {
+      console.log(data);
+      typeof data.products === "object" &&
+        setProducts([...products, Object.entries(data.products)[0]]);
+    });
+  };
+  
+  console.log(insuredInfo, vehicleInfo, advisorInfo, agencyInfo);
+
   React.useEffect(() => {
     if (
       !document
@@ -57,9 +85,14 @@ export default function SectionProducts() {
         setPriceRange([Math.round(values[0]), Math.round(values[1])]);
       });
     }
-    console.log(products, attGroupArr);
+    socket.emit("create-room", "room-" + id);
     return function cleanup() {};
-  });
+  }, []);
+
+  React.useEffect(() => {
+    loadProducts();
+  }, [products])
+
   const handleToggle = (value) => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -70,13 +103,14 @@ export default function SectionProducts() {
     }
     setChecked(newChecked);
   };
+
   const classes = useStyles();
   return (
     <div className={classes.section}>
       <div className={classes.container}>
         <h2>{products.length} Seguros Encontrados</h2>
         <GridContainer>
-          <GridItem md={3} sm={3}>
+          <GridItem sm={12} md={3}>
             <Card plain>
               <CardBody className={classes.cardBodyRefine}>
                 <h4 className={classes.cardTitle + " " + classes.textLeft}>
@@ -174,11 +208,11 @@ export default function SectionProducts() {
               </CardBody>
             </Card>
           </GridItem>
-          <GridItem md={9} sm={9}>
+          <GridItem md={9} xs={12}>
             <GridContainer>
               {products.map((product) => (
-                <GridItem md={4} sm={4} key={product[0]}>
-                  <ProductDetailCard data={product} groups={attributeGroups} />
+                <GridItem xs={8} sm={6} lg={4} key={product[0]}>
+                  <ProductDetailCard data={product} groups={attributeGroups} comp={products}/>
                 </GridItem>
               ))}
             </GridContainer>

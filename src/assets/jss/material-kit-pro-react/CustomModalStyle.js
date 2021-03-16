@@ -1,25 +1,57 @@
-import { whiteColor, grayColor, infoColor } from "assets/jss/material-kit-pro-react.js";
+import {
+  whiteColor,
+  grayColor,
+  infoColor,
+} from "assets/jss/material-kit-pro-react.js";
 
-const modalStyle = (theme) => ({
+const CustomModalStyle = (theme) => ({
   modalRoot: {
     overflow: "auto",
     display: "block",
   },
-  groupTitle:{
+  groupTitle: {
     width: "100%",
     textAlign: "center",
     color: infoColor[0],
+    fontSize: "1.5rem",
+    textTransform: "uppercase",
   },
-  attrTitle:{
+  attrTitle: {
     width: "100%",
-  },
-  description:{
     textAlign: "center",
-    textTransform: "capitalize"
+    textTransform: "uppercase",
+  },
+  descriptionMain: {
+    textAlign: "center",
+    fontSize: "1.3rem",
+    fontWeight: "bold",
+    paddingTop: "1rem",
+    paddingBottom: "1rem",
+    margin: 0,
+  },
+  description: {
+    textAlign: "center",
+    fontSize: "1rem",
+    margin: 0,
+  },
+  imgFooter: {
+    margin: "0 auto",
+  },
+  thumb: {
+    maxWidth: "100%",
+  },
+  paper: {
+    minHeight: "2rem",
+    width: "auto",
+    marginBottom: "1rem",
   },
   modal: {
     [theme.breakpoints.up("xs")]: {
-      maxWidth: "500px",
+      maxWidth: "90vw",
+      margin: "auto",
+    },
+    [theme.breakpoints.up("md")]: {
+      maxWidth: "80vw",
       margin: "auto",
     },
     borderRadius: "6px",
@@ -169,4 +201,4 @@ const modalStyle = (theme) => ({
   },
 });
 
-export default modalStyle;
+export default CustomModalStyle;

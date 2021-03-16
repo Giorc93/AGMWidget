@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -39,7 +38,6 @@ import CustomForm from "components/CustomForm/CustomForm";
 
 const PersonDataForm = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { register, handleSubmit, errors, watch, control } = useForm({
     mode: "onBlur",
@@ -62,7 +60,7 @@ const PersonDataForm = (props) => {
 
   const onSubmit = (data) => {
     dispatch(setPersonData(data));
-    history.push("/results");
+    props.handleNext();
   };
 
   return (

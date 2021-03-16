@@ -36,65 +36,84 @@ export default function ProductDetailCard(props) {
   //Modals
   const [detailModal, setDetailModal] = useState(false);
   return (
-    <Card plain product>
+    <Card product>
       <CardHeader image>
         <img src={product[1].thumb} height="150px" alt=".." />
       </CardHeader>
       <CardBody plain>
-        <a href="#">
-          <h4 className={classes.cardTitle}>{product[1].name}</h4>
-        </a>
+        <h4 className={classes.cardTitle}>{product[1].name}</h4>
         <GridContainer
           justify="center"
           spacing={2}
           className={classes.gridContainer}
         >
           {product[1].attribute["26"] !== "" && (
-            <Tooltip
-              title="Asistencia Jurídica"
-              placement="top"
-              classes={{ tooltip: classes.tooltip }}
-            >
-              <Button justIcon simple color="success">
-                <Gavel />
-              </Button>
-            </Tooltip>
+            <GridItem xs={2}>
+              <Tooltip
+                title="Asistencia Jurídica"
+                placement="top"
+                classes={{ tooltip: classes.tooltip }}
+              >
+                <Button justIcon simple color="success">
+                  <Gavel />
+                </Button>
+              </Tooltip>
+            </GridItem>
           )}
           {product[1].attribute["38"] !== "" && (
-            <Tooltip
-              id="tooltip-top"
-              title="Vehiculo de Reemplazo"
-              placement="top"
-              classes={{ tooltip: classes.tooltip }}
-            >
-              <Button justIcon simple color="success">
-                <Car />
-              </Button>
-            </Tooltip>
+            <GridItem xs={2}>
+              <Tooltip
+                id="tooltip-top"
+                title="Vehiculo de Reemplazo"
+                placement="top"
+                classes={{ tooltip: classes.tooltip }}
+              >
+                <Button justIcon simple color="success">
+                  <Car />
+                </Button>
+              </Tooltip>
+            </GridItem>
           )}
           {product[1].attribute["58"] !== "" && (
-            <Tooltip
-              id="tooltip-top"
-              title="Conductor Elegido"
-              placement="top"
-              classes={{ tooltip: classes.tooltip }}
-            >
-              <Button justIcon simple color="success">
-                <Person />
-              </Button>
-            </Tooltip>
+            <GridItem xs={2}>
+              <Tooltip
+                id="tooltip-top"
+                title="Conductor Elegido"
+                placement="top"
+                classes={{ tooltip: classes.tooltip }}
+              >
+                <Button justIcon simple color="success">
+                  <Person />
+                </Button>
+              </Tooltip>
+            </GridItem>
           )}
+          <GridItem container xs={12}>
+            <GridItem xs={12}>
+              <p color="info">
+                <b>Precio: </b>
+                {product[1].price} COP
+              </p>
+            </GridItem>
+            {product[1].cuotaInicialFinanciacion === "Si" && (
+              <GridItem xs={12}>
+                <p>
+                  <b>Financiación: </b>
+                  <b>{product[1].numeroCuotaFinanciacion}</b> cuotas de{" "}
+                  <b>{product[1].valorCuotaFinanciacion} COP </b>
+                </p>
+              </GridItem>
+            )}
+            <GridItem xs={12}>
+              <p>
+                <b>Vigencia: </b>
+                Hasta el {product[1].vigencia_cotizacion}
+              </p>
+            </GridItem>
+          </GridItem>
         </GridContainer>
       </CardBody>
       <CardFooter plain className={classes.justifyContentBetween}>
-        <div className={classes.priceContainer}>
-          <span className={classes.price}>
-            <h5>Precio</h5>
-            <p>
-              <b>{product[1].price} </b>COP
-            </p>
-          </span>
-        </div>
         <Tooltip
           id="tooltip-top"
           title="Ver Detalles"
@@ -115,8 +134,9 @@ export default function ProductDetailCard(props) {
       <ProductDetailModal
         showModal={detailModal}
         handleModal={setDetailModal}
-        data={product[1]}
+        data={product}
         groups={props.groups}
+        comp={props.comp}
       />
     </Card>
   );

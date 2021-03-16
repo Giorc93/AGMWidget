@@ -76,7 +76,7 @@ export default function SearchResultModal(props) {
           </p>
         </DialogContent>
         <DialogActions className={classes.modalFooter}>
-          <GridContainer justify content="center">
+          <GridContainer justify="center">
             <GridItem xs={12} md={6}>
               <Button
                 onClick={() => handleSearchType("plate")}

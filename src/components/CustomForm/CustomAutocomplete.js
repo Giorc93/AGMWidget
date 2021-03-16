@@ -11,8 +11,8 @@ const CustomAutoComplete = forwardRef((props, ref) => {
     <Autocomplete
       // eslint-disable-next-line react/prop-types
       loading={props.loading}
-      loadingText={props.loadingText}
-      noOptionsText={props.noOptionsText}
+      loadingText={props.loadingtext}
+      noOptionsText={props.nooptionstext}
       onChange={(e, v, r) => (props.onChange ? props.onChange(e, v, r) : null)}
       options={options}
       getOptionLabel={(option) => option}

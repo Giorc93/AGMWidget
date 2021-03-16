@@ -34,7 +34,7 @@ export const getVehicleByPlate = createAsyncThunk(
 );
 
 const initialState = {
-  data: [],
+  data: "",
   status: "",
 };
 

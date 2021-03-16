@@ -45,7 +45,7 @@ const PlateForm = (props) => {
         <GridItem xs={12}>
           <h3 style={{ textAlign: "center" }}>Búsqueda por Placa</h3>
         </GridItem>
-        <GridItem xs={12} md={6}>
+        <GridItem xs={12} md={4}>
           <CustomInput
             type="text"
             name="plateNumber"

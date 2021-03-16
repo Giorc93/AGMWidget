@@ -226,9 +226,9 @@ export default function VehicleRiskModal(props) {
                   name="placeData"
                   label="Ciudad de Circulación"
                   loading={citiesList.status === "loading" ? true : false}
-                  loadingText="Cargando listado de ciudades"
+                  loadingtext="Cargando listado de ciudades"
                   onChange={handlePlaceDataChange}
-                  noOptionsText={
+                  nooptionstext={
                     citiesList.status === "failed"
                       ? "Error al cargar el listado de ciudades"
                       : "Ciudad no encontrada"

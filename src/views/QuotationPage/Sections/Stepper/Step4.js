@@ -16,10 +16,10 @@ const Step4 = (props) => {
     <GridContainer justify="center">
       <GridItem xs={12}>
         {documentData.idType === "NIT" && (
-          <CompanyDataForm handleStep={props.handleStep} />
+          <CompanyDataForm handleStep={props.handleStep} handleNext={props.handleNext}/>
         )}
         {documentData.idType !== "NIT" && (
-          <PersonDataForm handleStep={props.handleStep} />
+          <PersonDataForm handleStep={props.handleStep} handleNext={props.handleNext}/>
         )}
       </GridItem>
     </GridContainer>

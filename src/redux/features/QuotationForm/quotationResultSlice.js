@@ -19,6 +19,8 @@ export const getQuotation = createAsyncThunk(
       redirect: "follow",
     };
 
+    console.log(quoteData);
+
     return await fetch(
       "http://api.app.agentemotor.com/insurances/process/create",
       requestOptions
@@ -26,9 +28,32 @@ export const getQuotation = createAsyncThunk(
   }
 );
 
+export const getJSON = createAsyncThunk(
+  "vehicle/getJSONStatus",
+  async (jsonUrl) => {
+    const headers = new Headers();
+
+    var requestOptions = {
+      method: "GET",
+      headers,
+      redirect: "follow",
+    };
+
+    return await fetch(jsonUrl, requestOptions).then((response) =>
+      response.json()
+    );
+  }
+);
+
 const initialState = {
-  data: [],
-  status: "",
+  urlData: {
+    data: "",
+    status: "",
+  },
+  quotationJSON: {
+    data: "",
+    status: "",
+  },
 };
 
 const quotationResultSlice = createSlice({
@@ -39,22 +64,33 @@ const quotationResultSlice = createSlice({
   },
   extraReducers: {
     [getQuotation.pending]: (state) => {
-      state.status = "loading";
+      state.urlData.status = "loading";
     },
     [getQuotation.fulfilled]: (state, action) => {
-      console.log(action);
-      console.log(action.payload);
-      state.data = action.payload;
-      state.status = "success";
+      state.urlData.data = action.payload;
+      state.urlData.status = "success";
     },
     [getQuotation.rejected]: (state) => {
-      state.status = "failed";
+      state.urlData.status = "failed";
+    },
+    [getJSON.pending]: (state) => {
+      state.quotationJSON.status = "loading";
+    },
+    [getJSON.fulfilled]: (state, action) => {
+      state.quotationJSON.data = action.payload;
+      state.quotationJSON.status = "success";
+    },
+    [getJSON.rejected]: (state) => {
+      state.quotationJSON.status = "failed";
     },
   },
 });
 
 export const { resetQuotationResultState } = quotationResultSlice.actions;
 
-export const selectQuotationResultData = (state) => state.quotationResult;
+export const selectQuotationResultURL = (state) =>
+  state.quotationResult.urlData;
+export const selectQuotationResultJSON = (state) =>
+  state.quotationResult.quotationJSON;
 
 export default quotationResultSlice.reducer;

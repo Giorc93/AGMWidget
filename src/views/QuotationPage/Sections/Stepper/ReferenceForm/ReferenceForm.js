@@ -86,9 +86,9 @@ const ReferenceForm = (props) => {
             name="brand"
             label="Marca"
             loading={brandsList.status === "loading" ? true : false}
-            loadingText="Cargando listado de marcas"
+            loadingtext="Cargando listado de marcas"
             onChange={handleBrandChange}
-            noOptionsText={
+            nooptionstext={
               brandsList.status === "failed"
                 ? "Error al cargar el listado de marcas"
                 : "Marca no encontrada"
@@ -104,7 +104,7 @@ const ReferenceForm = (props) => {
             name="model"
             label="Modelo"
             onChange={handleModelChange}
-            noOptionsText="Modelo fuera de rango (Máx. 25 años de uso)"
+            nooptionstext="Modelo fuera de rango (Máx. 25 años de uso)"
             options={modelArray}
             error={!!errors.model}
             helperText={errors?.model?.message}
@@ -116,8 +116,8 @@ const ReferenceForm = (props) => {
             name="line"
             label="Referencia"
             loading={brandsList.status === "loading" ? true : false}
-            loadingText="Cargando listado de referencias"
-            noOptionsText="No se han encontrados referencias"
+            loadingtext="Cargando listado de referencias"
+            nooptionstext="No se han encontrados referencias"
             options={referencesList.data}
             error={!!errors.line}
             helperText={errors?.line?.message}

@@ -14,7 +14,6 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Footer from "components/Footer/Footer.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
-import SectionLatestOffers from "views/EcommercePage/Sections/SectionLatestOffers.js";
 import SectionProducts from "views/EcommercePage/Sections/SectionProducts.js";
 import SectionData from "views/EcommercePage/Sections/SectionData.js";
 // @material-ui/core components

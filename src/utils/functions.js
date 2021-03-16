@@ -102,3 +102,4 @@ export const formatValue = (value) => {
   }).format(value);
   return formatedValue;
 };
+
