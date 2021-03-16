@@ -73,4 +73,4 @@ gulp.task("licenses", async function () {
   return;
 });
 
-gulp.task("default", function () {});
+gulp.task("default", function(){console.log('done')} );
