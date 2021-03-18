@@ -33,5 +33,5 @@ ReactDOM.render(
       <Routing />
     </MemoryRouter>
   </Provider>,
-  document.getElementById("AGMroot")
+  document.getElementById("root")
 );
