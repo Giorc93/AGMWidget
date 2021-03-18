@@ -72,3 +72,7 @@ gulp.task("licenses", async function() {
     .pipe(gulp.dest("./", { overwrite: true }));
   return;
 });
+
+gulp.task("default", done => {
+  done();
+});
