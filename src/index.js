@@ -33,5 +33,5 @@ ReactDOM.render(
       <Routing />
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("rootAgmApp")
 );
