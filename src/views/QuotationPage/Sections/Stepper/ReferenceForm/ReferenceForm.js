@@ -48,7 +48,6 @@ const ReferenceForm = (props) => {
   const referencesList = useSelector(selectReferencesListData);
 
   const handleDispatch = () => {
-    brandsList.status === "" && dispatch(getBrandsList());
     vehicleData.brand !== undefined &&
       vehicleData.model !== undefined &&
       dispatch(getReferencesList(vehicleData));
@@ -66,9 +65,12 @@ const ReferenceForm = (props) => {
 
   const onSubmit = (data) => {
     dispatch(getVehicleByReference(data));
-    dispatch(setSearchType("reference"));
     props.handleNext();
   };
+
+  useEffect(() => {
+    dispatch(getBrandsList());
+  }, [])
 
   useEffect(() => {
     handleDispatch();

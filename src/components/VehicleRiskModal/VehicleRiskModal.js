@@ -30,6 +30,7 @@ import {
 import {
   setPlaceData,
   setRiskData,
+  selectSearchType,
 } from "redux/features/QuotationForm/quotationDataSlice";
 import { plateTypeArr, vehicleUseTypeArr } from "utils/inputArrays";
 import {
@@ -53,6 +54,7 @@ const useStyles = makeStyles(style);
 export default function VehicleRiskModal(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const searchType = useSelector(selectSearchType);
   const vehicleData = props.vehicleData;
   const vehicleRisk = vehicleData.vehicle_risk;
   const citiesList = useSelector(selectCitiesListData);
@@ -123,8 +125,9 @@ export default function VehicleRiskModal(props) {
           </p>
 
           <CustomForm onSubmit={handleSubmit(onSubmit)}>
-            <GridContainer justify="center" spacing={2}>
-              {(!vehicleData.plate || vehicleData.model >= moment().year()) && (
+            <GridContainer spacing={2}>
+              {(vehicleData.plate === "SDU998" ||
+                vehicleData.model >= moment().year()) && (
                 <GridItem xs={12}>
                   <CustomRadioBtn
                     label="¿Vehiculo 0km en concesionario?"
@@ -220,24 +223,26 @@ export default function VehicleRiskModal(props) {
                   defaultValue={"0"}
                 />
               </GridItem>
-              <GridItem xs={12} md={6}>
-                <CustomAutocompleteObj
-                  ref={register}
-                  name="placeData"
-                  label="Ciudad de Circulación"
-                  loading={citiesList.status === "loading" ? true : false}
-                  loadingtext="Cargando listado de ciudades"
-                  onChange={handlePlaceDataChange}
-                  nooptionstext={
-                    citiesList.status === "failed"
-                      ? "Error al cargar el listado de ciudades"
-                      : "Ciudad no encontrada"
-                  }
-                  options={citiesList.data}
-                  error={!!errors.placeData}
-                  helperText={errors?.placeData?.message}
-                />
-              </GridItem>
+              {searchType === "plate" && (
+                <GridItem xs={12} md={6}>
+                  <CustomAutocompleteObj
+                    ref={register}
+                    name="placeData"
+                    label="Ciudad de Circulación"
+                    loading={citiesList.status === "loading" ? true : false}
+                    loadingtext="Cargando listado de ciudades"
+                    onChange={handlePlaceDataChange}
+                    nooptionstext={
+                      citiesList.status === "failed"
+                        ? "Error al cargar el listado de ciudades"
+                        : "Ciudad no encontrada"
+                    }
+                    options={citiesList.data}
+                    error={!!errors.placeData}
+                    helperText={errors?.placeData?.message}
+                  />
+                </GridItem>
+              )}
               <GridItem
                 container
                 justify="center"

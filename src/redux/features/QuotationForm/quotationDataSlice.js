@@ -43,6 +43,10 @@ const quotationDataSlice = createSlice({
     setCompanyData: (state, action) => {
       state.companyData = action.payload;
     },
+    setReferenceData: (state, action) => {
+      state.vehicleData = {...state.vehicleData, plate: action.payload.plate};
+      state.placeData = action.payload.placeData;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   setRiskData,
   setPersonData,
   setCompanyData,
+  setReferenceData,
 } = quotationDataSlice.actions;
 
 export const selectQuotationData = (state) => state.quotationData;

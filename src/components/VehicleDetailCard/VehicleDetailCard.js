@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 //
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { setVehicleData } from "redux/features/QuotationForm/quotationDataSlice";
+import {
+  setVehicleData,
+  selectSearchType,
+  setReferenceData,
+} from "redux/features/QuotationForm/quotationDataSlice";
 import SearchResultModal from "components/SearchResultModal/SearchResultModal";
 import VehicleRiskModal from "components/VehicleRiskModal/VehicleRiskModal";
+// utils
+import { defaultData } from "utils/inputArrays";
 
 // core components
 import Card from "components/Card/Card.js";
@@ -34,6 +40,7 @@ const style = {
 const useStyles = makeStyles(style);
 
 export default function CardDetailCard(props) {
+  const searchType = useSelector(selectSearchType);
   const dispatch = useDispatch();
   const classes = useStyles();
   const vehicleData = props.data;
@@ -56,6 +63,11 @@ export default function CardDetailCard(props) {
     dispatch(setVehicleData(vehicleData));
     setVehicleRiskModal(true);
   };
+
+  useEffect(() => {
+    return () => {searchType === "reference" && dispatch(setReferenceData(defaultData))}
+  }, []);
+
   return (
     <Card style={{ width: 400 }}>
       <CardHeader

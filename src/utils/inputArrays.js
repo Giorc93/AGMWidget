@@ -164,3 +164,17 @@ export const reqDate = [
   { value: "month", label: "Este mes" },
   { value: "year", label: "Mas de un mes" },
 ];
+
+export const defaultData = {
+  plate: "SDU998",
+  placeData: {
+    "id": 1006,
+    "country_name": "CO-VAL-CAL1",
+    "country_code": "CO-VAL-CAL1",
+    "state_name": "Valle del Cauca",
+    "state_code": "76",
+    "city_name": "Cali",
+    "city_code": "1",
+    "code": "76001"
+  },
+}
