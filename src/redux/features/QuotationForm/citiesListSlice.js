@@ -25,7 +25,7 @@ export const getCitiesList = createAsyncThunk(
     };
 
     return await fetch(
-      "http://api.app.agentemotor.com/insurances/ubication/actions/get",
+      "https://pacific-dusk-24048.herokuapp.com/insurances/ubication/actions/get",
       requestOptions
     ).then((response) => response.json());
   }

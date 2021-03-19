@@ -20,7 +20,7 @@ import React from "react";
 import store from "redux/store";
 import Routing from "./routing";
 import ReactDOM from "react-dom";
-import { MemoryRouter } from "react-router";
+import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import "assets/scss/material-kit-pro-react.scss?v=1.9.0";
@@ -29,9 +29,9 @@ var hist = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-    <MemoryRouter history={hist}>
+    <Router history={hist}>
       <Routing />
-    </MemoryRouter>
+    </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("AGMroot")
 );

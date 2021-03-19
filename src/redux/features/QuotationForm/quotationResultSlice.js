@@ -22,7 +22,7 @@ export const getQuotation = createAsyncThunk(
     console.log(quoteData);
 
     return await fetch(
-      "http://api.app.agentemotor.com/insurances/process/create",
+      "https://pacific-dusk-24048.herokuapp.com/insurances/process/create",
       requestOptions
     ).then((response) => response.json());
   }

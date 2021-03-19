@@ -174,7 +174,7 @@ export default function ProductDetailModal(props) {
                               <React.Fragment key={i}>
                                 {el === "67" ? (
                                   prod.attribute[el]
-                                    .split("&lt;/ul&gt;&lt;li&gt;")
+                                    .split("")
                                     .map((str, i) => (
                                       <span key={i}>
                                         <p className={classes.description}>

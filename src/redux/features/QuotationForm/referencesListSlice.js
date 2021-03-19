@@ -32,7 +32,7 @@ export const getReferencesList = createAsyncThunk(
     };
 
     return await fetch(
-      "http://api.app.agentemotor.com/insurances/insuranceobject/actions/get",
+      "https://pacific-dusk-24048.herokuapp.com/insurances/insuranceobject/actions/get",
       requestOptions
     ).then((response) => response.json());
   }
