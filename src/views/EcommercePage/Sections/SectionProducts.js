@@ -63,12 +63,10 @@ export default function SectionProducts() {
   const loadProducts = () => {
     socket.on("update-quotes-io", (data) => {
       console.log(data);
-      typeof data.products === "object" &&
+      typeof data.products === "object" && 
         setProducts([...products, Object.entries(data.products)[0]]);
     });
   };
-  
-  console.log(insuredInfo, vehicleInfo, advisorInfo, agencyInfo);
 
   React.useEffect(() => {
     if (

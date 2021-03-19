@@ -39,7 +39,7 @@ export const getReferencesList = createAsyncThunk(
 );
 
 const initialState = {
-  data: "",
+  data: [],
   status: "",
 };
 

@@ -115,7 +115,7 @@ const ReferenceForm = (props) => {
             ref={register}
             name="line"
             label="Referencia"
-            loading={brandsList.status === "loading" ? true : false}
+            loading={referencesList.status === "loading" ? true : false}
             loadingtext="Cargando listado de referencias"
             nooptionstext="No se han encontrados referencias"
             options={referencesList.data}
