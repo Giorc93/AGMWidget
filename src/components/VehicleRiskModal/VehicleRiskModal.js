@@ -55,15 +55,17 @@ export default function VehicleRiskModal(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const searchType = useSelector(selectSearchType);
+  let schema =
+    searchType === "reference"
+      ? { vehiclePrice, accesoriesPrice, inAgency }
+      : { vehiclePrice, accesoriesPrice, inAgency, placeData };
   const vehicleData = props.vehicleData;
   const vehicleRisk = vehicleData.vehicle_risk;
   const citiesList = useSelector(selectCitiesListData);
   const [placeDataState, setPlaceDataState] = useState(undefined);
   const { register, handleSubmit, control, watch, errors } = useForm({
     mode: "onBlur",
-    resolver: yupResolver(
-      yup.object().shape({ vehiclePrice, accesoriesPrice, inAgency, placeData })
-    ),
+    resolver: yupResolver(yup.object().shape(schema)),
     defaultValues: { vehiclePrice: vehicleRisk.reference_price },
   });
   const watchInAgency = watch("inAgency", "false");
@@ -77,9 +79,25 @@ export default function VehicleRiskModal(props) {
     placeDataState !== undefined && dispatch(setPlaceData(placeDataState));
   };
   const handlePlaceDataChange = (e, v, r) => {
+    console.log(v);
     r === "select-option" && setPlaceDataState(v);
     r === "clear" && setPlaceDataState(undefined);
   };
+  useEffect(() => {
+    searchType === "reference" &&
+      dispatch(
+        setPlaceData({
+          id: 1006,
+          country_name: "CO-VAL-CAL1",
+          country_code: "CO-VAL-CAL1",
+          state_name: "Valle del Cauca",
+          state_code: "76",
+          city_name: "Cali",
+          city_code: "1",
+          code: "76001",
+        })
+      );
+  }, []);
   useEffect(() => {
     handleDispatch();
   }, [placeDataState]);
@@ -120,10 +138,6 @@ export default function VehicleRiskModal(props) {
           id="classic-modal-slide-description"
           className={classes.modalBody}
         >
-          <p style={{ fontSize: "1rem" }}>
-            Necesitamos algo más de información
-          </p>
-
           <CustomForm onSubmit={handleSubmit(onSubmit)}>
             <GridContainer spacing={2}>
               {(vehicleData.plate === "SDU998" ||
@@ -226,7 +240,7 @@ export default function VehicleRiskModal(props) {
               {searchType === "plate" && (
                 <GridItem xs={12} md={6}>
                   <CustomAutocompleteObj
-                    ref={register}
+                    ref={register({ required: true })}
                     name="placeData"
                     label="Ciudad de Circulación"
                     loading={citiesList.status === "loading" ? true : false}
