@@ -51,7 +51,7 @@ const CustomModalStyle = (theme) => ({
       margin: "auto",
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: "80vw",
+      maxWidth: "90vw",
       margin: "auto",
     },
     borderRadius: "6px",

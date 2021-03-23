@@ -198,7 +198,7 @@ export default function ProductDetailModal(props) {
                                     ))
                                 ) : (
                                   <GridItem xs={12} md={gridWidth(comparative.length)}>
-                                    <p className={classes.description}>
+                                    <p className={classes.description} >
                                       {prod.attribute[el] === ""
                                         ? "N/A"
                                         : prod.attribute[el]}

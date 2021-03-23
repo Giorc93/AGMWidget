@@ -47,7 +47,7 @@ export default function SectionProducts() {
     vehiculoInfo: vehicleInfo,
     asesor_Info: advisorInfo,
     agenciaInfo: agencyInfo,
-  } = responseJSON//jsonData.data;
+  } = jsonData.data;
 
   const [products, setProducts] = React.useState(
     Object.entries(productos).filter(
