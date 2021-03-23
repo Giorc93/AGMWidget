@@ -35,9 +35,23 @@ export default function ProductDetailModal(props) {
   const products = props.comp;
   const productData = props.data[1];
   const attGroups = props.groups;
-
   const comparativeArr = products.filter((prod) => prod[0] !== props.data[0]);
   const [comparative, setComparative] = useState([]);
+
+  const gridWidth = (n) => {
+    switch (n) {
+      case 1:
+        return 12;
+      case 2:
+        return 6;
+      case 3:
+        return 4;
+      case 4:
+        return 3;
+      default:
+        return 12;
+    }
+  }
 
   const handleChange = (event) => {
     setComparative(event.target.value);
@@ -142,7 +156,7 @@ export default function ProductDetailModal(props) {
                       <Paper elevation={3} className={classes.paper}>
                         {el === "67" ? (
                           productData.attribute[el]
-                            .split("&lt;ul&gt;&lt;li&gt;")
+                            .split(/<\/li><\/ul>|<\/li> <\/ul>/)
                             .map((str, i) => (
                               <GridContainer
                                 justify="center"
@@ -169,12 +183,12 @@ export default function ProductDetailModal(props) {
                     {comparative.length > 0 && (
                       <GridItem container justify="center" xs={12}>
                         <Paper elevation={3} className={classes.paper}>
-                          <GridContainer justify="center" direction="row" spacing={3}>
+                          <GridContainer justify="center" direction="row" spacing={1} alignItems="center">
                             {comparative.map((prod, i) => (
                               <React.Fragment key={i}>
                                 {el === "67" ? (
                                   prod.attribute[el]
-                                    .split("")
+                                    .split(/<\/li><\/ul>|<\/li> <\/ul>/)
                                     .map((str, i) => (
                                       <span key={i}>
                                         <p className={classes.description}>
@@ -183,8 +197,8 @@ export default function ProductDetailModal(props) {
                                       </span>
                                     ))
                                 ) : (
-                                  <GridItem xs={12} lg={2}>
-                                    <p className={classes.description} style={{width: "auto"}}>
+                                  <GridItem xs={12} md={gridWidth(comparative.length)}>
+                                    <p className={classes.description}>
                                       {prod.attribute[el] === ""
                                         ? "N/A"
                                         : prod.attribute[el]}

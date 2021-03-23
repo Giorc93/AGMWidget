@@ -32,7 +32,7 @@ const CustomModalStyle = (theme) => ({
   description: {
     textAlign: "center",
     fontSize: "1rem",
-    margin: 0,
+    margin: 10,
   },
   imgFooter: {
     margin: "0 auto",
