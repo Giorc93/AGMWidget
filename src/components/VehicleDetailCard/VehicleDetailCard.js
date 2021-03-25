@@ -33,7 +33,7 @@ const style = {
   },
   vehicleSpec: {
     margin: 0,
-    textTransform: "capitalize",
+    marginLeft: "20px"
   },
 };
 
@@ -65,30 +65,26 @@ export default function CardDetailCard(props) {
   };
 
   useEffect(() => {
-    return () => {searchType === "reference" && dispatch(setReferenceData(defaultData))}
+    return () => {
+      searchType === "reference" && dispatch(setReferenceData(defaultData));
+    };
   }, []);
 
   return (
     <Card style={{ width: 400 }}>
       <CardHeader
-        color="info"
         style={{
           textAlign: "center",
           textTransform: "uppercase",
           fontWeight: "bold",
+          fontSize: "20px",
         }}
       >
         {props.dataLength > 1 ? vehicleData.brand : vehicleData.plate}
       </CardHeader>
-      <img
-        src="https://via.placeholder.com/320x150"
-        alt="placeholderImage"
-        style={{ margin: "1em 0.5em 0em 0.5em " }}
-      />
       <CardBody>
-        <h3 className={classes.cardTitle}>{vehicleData.brand}</h3>
         <h4 className={classes.cardTitle} style={{ textAlign: "justify" }}>
-          {vehicleReference}
+          {vehicleData.type} {vehicleData.brand} {vehicleReference}
         </h4>
         <GridContainer className={classes.gridContainer} spacing={2}>
           <GridItem
@@ -99,8 +95,8 @@ export default function CardDetailCard(props) {
             direction="column"
           >
             <h5 className={classes.vehicleSpec}>
+              <i className="fas fa-barcode" style={{ marginRight: 5 }}></i>
               <strong>Cod.Fasecolda</strong>
-              <i className="fas fa-barcode" style={{ marginLeft: 5 }}></i>
             </h5>
             <h5 className={classes.vehicleSpec}>{vehicleData.code}</h5>
           </GridItem>
@@ -112,11 +108,11 @@ export default function CardDetailCard(props) {
             direction="column"
           >
             <h5 className={classes.vehicleSpec}>
-              <strong>Modelo</strong>
               <i
                 className="fas fa-hourglass-half"
-                style={{ marginLeft: 5 }}
+                style={{ marginRight: 5 }}
               ></i>
+              <strong>Modelo</strong>
             </h5>
             <h5 className={classes.vehicleSpec}>{vehicleData.model}</h5>
           </GridItem>
@@ -128,23 +124,8 @@ export default function CardDetailCard(props) {
             direction="column"
           >
             <h5 className={classes.vehicleSpec}>
-              <strong>Tipo</strong>
-              <i className="fas fa-car" style={{ marginLeft: 5 }}></i>
-            </h5>
-            <h5 className={classes.vehicleSpec}>
-              {vehicleData.type.toLowerCase()}
-            </h5>
-          </GridItem>
-          <GridItem
-            className={classes.gridItem}
-            xs={12}
-            sm={6}
-            container
-            direction="column"
-          >
-            <h5 className={classes.vehicleSpec}>
+              <i className="fas fa-cogs" style={{ marginRight: 5 }}></i>
               <strong>Cilindraje</strong>
-              <i className="fas fa-cogs" style={{ marginLeft: 5 }}></i>
             </h5>
             <h5 className={classes.vehicleSpec}>
               {vehicleData.cylinder === "0"
@@ -159,8 +140,8 @@ export default function CardDetailCard(props) {
             direction="column"
           >
             <h5 className={classes.vehicleSpec}>
-              <strong>Precio de Referencia</strong>
-              <i className="fas fa-dollar-sign" style={{ marginLeft: 5 }}></i>
+              <i className="fas fa-dollar-sign" style={{ marginRight: 5 }}></i>
+              <strong>Precio de referencia</strong>
             </h5>
             <h5 className={classes.vehicleSpec}>
               {refPrice}
@@ -178,7 +159,6 @@ export default function CardDetailCard(props) {
               >
                 <Button
                   size="sm"
-                  color="warning"
                   onClick={() => setSearchModal(true)}
                 >
                   No es mi vehiculo

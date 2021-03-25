@@ -33,7 +33,7 @@ export default function AboutUsPage({ ...rest }) {
     <div>
       <Header
         color="transparent"
-        brand="agentemotor"
+        brand="Nombre Agencia"
         links={<HeaderLinks dropdownHoverColor="info" />}
         fixed
         changeColorOnScroll={{
@@ -57,18 +57,14 @@ export default function AboutUsPage({ ...rest }) {
                 classes.textCenter
               )}
             >
-              <h1 className={classes.title}>Solicita Tu Cotización</h1>
-              <h4>
-                Dedique sus esfuerzos en el cierre de ventas. AgenteMotor se
-                encarga de cotizar los seguros para vehículo
-              </h4>
+              <h1 className={classes.title}>Solicita tu cotización</h1>
+
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          <SectionDescription />
           <SectionForm />
         </div>
       </div>
@@ -79,12 +75,12 @@ export default function AboutUsPage({ ...rest }) {
               <List className={classes.list}>
                 <ListItem className={classes.inlineBlock}>
                   <a href="#" target="_blank" className={classes.block}>
-                    Términos de Uso
+                    Términos de uso
                   </a>
                 </ListItem>
                 <ListItem className={classes.inlineBlock}>
                   <a href="#" target="_blank" className={classes.block}>
-                    Politicas de Privacidad
+                    Politicas de privacidad
                   </a>
                 </ListItem>
               </List>

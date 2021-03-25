@@ -95,10 +95,10 @@ export const insuredTypeArr = [
 
 export const idTypeArr = [
   //TODO: Check "PA" API Schema value
-  { value: "CC", label: "Cédula de Ciudadanía" },
-  { value: "TI", label: "Tarjeta de Identidad" },
-  { value: "CE", label: "Cédula de Extranjería" },
-  { value: "RC", label: "Registro Civil" },
+  { value: "CC", label: "Cédula de ciudadanía" },
+  { value: "TI", label: "Tarjeta de identidad" },
+  { value: "CE", label: "Cédula de extranjería" },
+  { value: "RC", label: "Registro civil" },
   { value: "NIT", label: "NIT" },
 ];
 

@@ -80,7 +80,7 @@ const ReferenceForm = (props) => {
     <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <GridContainer justify="center" spacing={2}>
         <GridItem xs={12}>
-          <h3 style={{ textAlign: "center" }}>Búsqueda por Referencia</h3>
+          <h3 style={{ textAlign: "center" }}>Búsqueda por referencia</h3>
         </GridItem>
         <GridItem xs={12} md={4}>
           <CustomAutocomplete

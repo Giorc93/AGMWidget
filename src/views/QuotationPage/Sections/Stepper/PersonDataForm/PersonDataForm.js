@@ -37,6 +37,10 @@ import GridItem from "components/Grid/GridItem";
 import CustomForm from "components/CustomForm/CustomForm";
 
 const PersonDataForm = (props) => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  },[]);
   const dispatch = useDispatch();
 
   const { register, handleSubmit, errors, watch, control } = useForm({
@@ -67,7 +71,7 @@ const PersonDataForm = (props) => {
     <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <GridContainer spacing={2}>
         <GridItem xs={12}>
-          <h3 style={{ textAlign: "center" }}>Información Persona Natural</h3>
+          <h3 style={{ textAlign: "center" }}>Información del propietario</h3>
         </GridItem>
         <GridItem container xs={12} sm={4} justify="center">
           <CustomInput
@@ -92,6 +96,7 @@ const PersonDataForm = (props) => {
         <GridItem container xs={12} sm={4} justify="center">
           <CustomRadioBtn
             label="Género"
+            color="primary"
             defaultValue="M"
             control={control}
             name="gender"
@@ -105,7 +110,7 @@ const PersonDataForm = (props) => {
             control={control}
             ref={register}
             defaultValue={documentData.idType}
-            label="Tipo de Documento"
+            label="Tipo de documento"
             error={!!errors.idType}
             helperText={errors?.idType?.message}
           />
@@ -115,7 +120,7 @@ const PersonDataForm = (props) => {
             name="idNumber"
             fullWidth
             ref={register}
-            label="Número de Documento"
+            label="Número de documento"
             error={!!errors.idNumber}
             helperText={errors?.idNumber?.message}
             defaultValue={documentData.idNumber}
@@ -124,7 +129,7 @@ const PersonDataForm = (props) => {
         <GridItem container xs={12} sm={4} justify="center">
           <CustomDatePicker
             name="birthdate"
-            label="Fecha de Nacimiento"
+            label="Fecha de nacimiento"
             control={control}
           />
         </GridItem>
@@ -148,7 +153,7 @@ const PersonDataForm = (props) => {
             name="phoneNumber"
             fullWidth
             ref={register}
-            label="Número Telefónico"
+            label="Número telefónico"
             error={!!errors.phoneNumber}
             helperText={errors?.phoneNumber?.message}
           />
@@ -165,7 +170,8 @@ const PersonDataForm = (props) => {
         </GridItem>
         <GridItem container xs={12} sm={4} justify="center">
           <CustomRadioBtn
-            label="¿Es la información de contacto del titular?"
+            label="¿Estos datos de contacto son del propietario del vehículo?"
+            color="primary"
             defaultValue="true"
             control={control}
             name="contactInfo"
@@ -181,23 +187,19 @@ const PersonDataForm = (props) => {
               name="contactName"
               fullWidth
               ref={register}
-              label="Nombre del Contacto"
+              label="Nombre del contacto"
               error={!!errors.contactName}
               helperText={errors?.contactName?.message}
             />
           </GridItem>
         )}
-        <GridItem xs={12}>
-          <h5>Prioridad</h5>
-        </GridItem>
         <GridItem container xs={12} sm={4}>
           <CustomSelect
             options={actualSituation}
             name="actualSituation"
             control={control}
             ref={register}
-            defaultValue={"new"}
-            label="¿Situación Actual?"
+            label="¿Situación actual?"
             error={!!errors.actualSituation}
             helperText={errors?.actualSituation?.message}
           />
@@ -208,7 +210,6 @@ const PersonDataForm = (props) => {
             name="reqDate"
             control={control}
             ref={register}
-            defaultValue={"today"}
             label="¿Cuándo necesitas la póliza?"
             error={!!errors.reqDate}
             helperText={errors?.reqDate?.message}

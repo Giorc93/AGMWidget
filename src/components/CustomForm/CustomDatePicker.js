@@ -19,12 +19,11 @@ function CustomDatePicker(props) {
         <Controller
           name={props.name}
           control={props.control}
-          defaultValue={moment().subtract(18, "years")}
+          defaultValue={null}
           render={({ ref, ...rest }) => (
             <KeyboardDatePicker
               margin="normal"
               fullWidth
-              emptyLabel="asda"
               cancelLabel="Cancelar"
               okLabel="Confirmar"
               minDate={moment().subtract(85, "years")}

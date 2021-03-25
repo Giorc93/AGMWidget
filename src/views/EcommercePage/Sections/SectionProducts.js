@@ -29,7 +29,7 @@ import {
 import { socket } from "utils/global";
 import { useSelector } from "react-redux";
 // JSON
-import { responseJSON } from 'utils/responseJSON';
+import { responseJSON } from "utils/responseJSON";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceSections/productsStyle.js";
 
@@ -47,173 +47,73 @@ export default function SectionProducts() {
     vehiculoInfo: vehicleInfo,
     asesor_Info: advisorInfo,
     agenciaInfo: agencyInfo,
-  } = jsonData.data;
+  } = responseJSON; //jsonData.data;
 
   const [products, setProducts] = React.useState(
     Object.entries(productos).filter(
       (product) => product[1].quotestage === "Created"
     )
   );
+  const [manufacturers, setManufacturers] = React.useState([
+    ...new Set(
+      products.map(function (prod) {
+        return prod[1].manufacturer;
+      })
+    ),
+  ]);
   const attributeGroups = Object.entries(attribute_groups);
   const attGroupArr = [];
   attributeGroups.map((el) => attGroupArr.push(el[1]));
-  const [checked, setChecked] = React.useState([1, 9, 27]);
-  const [priceRange, setPriceRange] = React.useState([500000, 1200000]);
 
   const loadProducts = () => {
     socket.on("update-quotes-io", (data) => {
       console.log(data);
-      typeof data.products === "object" && 
+      typeof data.products === "object" &&
         setProducts([...products, Object.entries(data.products)[0]]);
     });
   };
 
   React.useEffect(() => {
-    if (
-      !document
-        .getElementById("sliderRegular")
-        .classList.contains("noUi-target")
-    ) {
-      Slider.create(document.getElementById("sliderRegular"), {
-        start: priceRange,
-        connect: true,
-        range: { min: 0, max: 5000000 },
-        step: 100000,
-      }).on("update", function (values) {
-        setPriceRange([Math.round(values[0]), Math.round(values[1])]);
-      });
-    }
     socket.emit("create-room", "room-" + id);
     return function cleanup() {};
   }, []);
 
   React.useEffect(() => {
     loadProducts();
-  }, [products])
-
-  const handleToggle = (value) => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-  };
+  }, [products]);
 
   const classes = useStyles();
+
   return (
     <div className={classes.section}>
       <div className={classes.container}>
-        <h2>{products.length} Seguros Encontrados</h2>
+        <h2>
+          {products.length} Seguros encontrados con {manufacturers.length}{" "}
+          aseguradoras
+        </h2>
         <GridContainer>
-          <GridItem sm={12} md={3}>
-            <Card plain>
-              <CardBody className={classes.cardBodyRefine}>
-                <h4 className={classes.cardTitle + " " + classes.textLeft}>
-                  Filtrar
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Limpiar Filtros"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button
-                      link
-                      justIcon
-                      size="sm"
-                      className={classes.pullRight + " " + classes.refineButton}
-                    >
-                      <Cached />
-                    </Button>
-                  </Tooltip>
-                  <Clearfix />
-                </h4>
-                <Accordion
-                  active={[0, 1]}
-                  activeColor="info"
-                  collapses={[
-                    {
-                      title: "Precio",
-                      content: (
-                        <CardBody className={classes.cardBodyRefine}>
-                          <span
-                            className={classNames(
-                              classes.pullLeft,
-                              classes.priceSlider
-                            )}
-                          >
-                            ${priceRange[0]}
-                          </span>
-                          <span
-                            className={classNames(
-                              classes.pullRight,
-                              classes.priceSlider
-                            )}
-                          >
-                            ${priceRange[1]}
-                          </span>
-                          <br />
-                          <br />
-                          <div id="sliderRegular" className="slider-success" />
-                        </CardBody>
-                      ),
-                    },
-                    {
-                      title: "Compañía",
-                      content: (
-                        <div className={classes.customExpandPanel}>
-                          <div
-                            className={
-                              classes.checkboxAndRadio +
-                              " " +
-                              classes.checkboxAndRadioHorizontal
-                            }
-                          >
-                            {products.map((product) => (
-                              <FormControlLabel
-                                key={product[0]}
-                                control={
-                                  <Checkbox
-                                    disableRipple
-                                    tabIndex={-1}
-                                    onClick={() => handleToggle(2)}
-                                    checkedIcon={
-                                      <Check className={classes.checkedIcon} />
-                                    }
-                                    icon={
-                                      <Check
-                                        className={classes.uncheckedIcon}
-                                      />
-                                    }
-                                    classes={{
-                                      checked: classes.checked,
-                                      root: classes.checkRoot,
-                                    }}
-                                  />
-                                }
-                                classes={{ label: classes.label }}
-                                label={product[1].manufacturer}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      ),
-                    },
-                  ]}
-                />
-              </CardBody>
-            </Card>
-          </GridItem>
-          <GridItem md={9} xs={12}>
+          <GridItem xs={12}>
             <GridContainer>
               {products.map((product) => (
-                <GridItem xs={8} sm={6} lg={4} key={product[0]}>
-                  <ProductDetailCard data={product} groups={attributeGroups} comp={products}/>
+                <GridItem xs={8} sm={6} lg={3} key={product[0]}>
+                  <ProductDetailCard
+                    data={product}
+                    groups={attributeGroups}
+                    comp={products}
+                  />
                 </GridItem>
               ))}
             </GridContainer>
+          </GridItem>
+          <GridItem xs={12}>
+            <span>
+              *Cada cotización es provisional y no implica aceptación del riesgo,
+              todas las condiciones incluyendo precios, tasas de financiación y
+              coberturas están sujetas a cambios, revisión, verificación y
+              aceptación acorde las políticas y parámetros de las aseguradoras e
+              intermediario, pudiendo variar el momento de emitir la póliza.
+              Tiempo de vigencia de las cotizaciones es de 5 días calendario.
+            </span>
           </GridItem>
         </GridContainer>
       </div>

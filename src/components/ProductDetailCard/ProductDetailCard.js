@@ -13,7 +13,6 @@ import Person from "@material-ui/icons/Person";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
@@ -38,7 +37,7 @@ export default function ProductDetailCard(props) {
   return (
     <Card product>
       <CardHeader image>
-        <img src={product[1].thumb} height="150px" alt=".." />
+        <img src={product[1].thumb} height="100" alt=".." />
       </CardHeader>
       <CardBody plain>
         <h4 className={classes.cardTitle}>{product[1].name}</h4>
@@ -47,90 +46,42 @@ export default function ProductDetailCard(props) {
           spacing={2}
           className={classes.gridContainer}
         >
-          {product[1].attribute["26"] !== "" && (
-            <GridItem xs={2}>
-              <Tooltip
-                title="Asistencia Jurídica"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}
-              >
-                <Button justIcon simple color="success">
-                  <Gavel />
-                </Button>
-              </Tooltip>
-            </GridItem>
-          )}
-          {product[1].attribute["38"] !== "" && (
-            <GridItem xs={2}>
-              <Tooltip
-                id="tooltip-top"
-                title="Vehiculo de Reemplazo"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}
-              >
-                <Button justIcon simple color="success">
-                  <Car />
-                </Button>
-              </Tooltip>
-            </GridItem>
-          )}
-          {product[1].attribute["58"] !== "" && (
-            <GridItem xs={2}>
-              <Tooltip
-                id="tooltip-top"
-                title="Conductor Elegido"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}
-              >
-                <Button justIcon simple color="success">
-                  <Person />
-                </Button>
-              </Tooltip>
-            </GridItem>
-          )}
           <GridItem container xs={12}>
             <GridItem xs={12}>
               <p color="info">
-                <b>Precio: </b>
-                {product[1].price} COP
+                <b>Responsabilidad Civil: </b>
+                {product[1].attribute["21"] === "" || product[1].attribute["21"] === "No_Cubre" ? "No Cubre" : product[1].attribute["21"]} 
+              </p>
+              <p color="info">
+                <b>Perdida total daños: </b>
+                {product[1].attribute["28"] === "" || product[1].attribute["28"] === "No_Cubre" ? "No Cubre" : product[1].attribute["28"]} 
+              </p>
+              <p color="info">
+                <b>Perdida parcial daños: </b>
+                {product[1].attribute["29"] === "" || product[1].attribute["29"] === "No_Cubre" ? "No Cubre" : product[1].attribute["29"]} 
+              </p>
+              <p color="info">
+                <b>Grua: </b>
+                {product[1].attribute["57"] === "" || product[1].attribute["57"] === "No_Cubre" ? "No Cubre" : "Si"} 
+              </p>
+              <p color="info">
+                <b>Vehiculo de reemplazo: </b>
+                {product[1].attribute["38"] === "" || product[1].attribute["38"] === "No_Cubre" ? "No Cubre" : product[1].attribute["38"]} 
+              </p>
+              <p color="info">
+                <b>Conductor elegido: </b>
+                {product[1].attribute["56"] === "" || product[1].attribute["56"] === "No_Cubre" ? "No Cubre" : product[1].attribute["56"]} 
               </p>
             </GridItem>
-            {product[1].cuotaInicialFinanciacion === "Si" && (
-              <GridItem xs={12}>
-                <p>
-                  <b>Financiación: </b>
-                  <b>{product[1].numeroCuotaFinanciacion}</b> cuotas de{" "}
-                  <b>{product[1].valorCuotaFinanciacion} COP </b>
-                </p>
-              </GridItem>
-            )}
-            <GridItem xs={12}>
-              <p>
-                <b>Vigencia: </b>
-                Hasta el {product[1].vigencia_cotizacion}
-              </p>
+            <GridItem container justify="center">
+              <h5>{product[1].price}</h5>
             </GridItem>
+            <Button color="info" fullWidth>
+              Ver más
+            </Button>
           </GridItem>
         </GridContainer>
       </CardBody>
-      <CardFooter plain className={classes.justifyContentBetween}>
-        <Tooltip
-          id="tooltip-top"
-          title="Ver Detalles"
-          placement="bottom"
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            justIcon
-            simple
-            color="info"
-            className={classes.pullRight}
-            onClick={() => setDetailModal(true)}
-          >
-            <Add />
-          </Button>
-        </Tooltip>
-      </CardFooter>
       <ProductDetailModal
         showModal={detailModal}
         handleModal={setDetailModal}

@@ -19,6 +19,12 @@ import CustomButton from "components/CustomButtons/Button";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 
+const inputProps = {
+  style: {
+    textTransform: "uppercase",
+  },
+};
+
 const PlateForm = (props) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm({
@@ -43,7 +49,7 @@ const PlateForm = (props) => {
     <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <GridContainer justify="center" spacing={2}>
         <GridItem xs={12}>
-          <h3 style={{ textAlign: "center" }}>Búsqueda por Placa</h3>
+          <h3 style={{ textAlign: "center" }}>Búsqueda por placa</h3>
         </GridItem>
         <GridItem xs={12} md={4}>
           <CustomInput
@@ -55,6 +61,7 @@ const PlateForm = (props) => {
             error={!!errors.plateNumber}
             helperText={errors?.plateNumber?.message}
             defaultValue={plateNumberData}
+            inputProps={inputProps}
           />
         </GridItem>
         <GridItem container justify="center" direction="row-reverse" xs={12}>

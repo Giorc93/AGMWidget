@@ -7,6 +7,8 @@ import {
 const formStyle = {
   root: {
     width: "100%",
+    paddingTop: "30px",
+    paddingBottom: "5px",
   },
   backButton: {
     marginRight: "8px",

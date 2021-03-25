@@ -35,6 +35,7 @@ const headerLinksStyle = theme => ({
     display: "block",
     width: "auto",
     margin: "0",
+    marginLeft: "15px",
     padding: "0",
     [theme.breakpoints.down("sm")]: {
       "& ul": {

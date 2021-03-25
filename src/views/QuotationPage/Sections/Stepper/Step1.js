@@ -52,7 +52,7 @@ const Step1 = (props) => {
           <CustomButton
             simple
             onClick={() => handleSearchType("plate")}
-            color="success"
+            color="primary"
           >
             Conozco el número de placa <CheckIcon />
           </CustomButton>
