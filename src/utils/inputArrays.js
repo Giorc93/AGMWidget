@@ -1,7 +1,7 @@
 //INSURABLE OBJECT INFO
 
 export const insurableObjectType = [
-  { value: "vehicle", label: "Vehiculo" },
+  { value: "vehicle", label: "Vehículo" },
   { value: "manufactured_object", label: "Objecto Manufacturado" },
   { value: "transportation_class", label: "Transportation Class?" },
   { value: "worker", label: "Trabajador" },
@@ -13,7 +13,7 @@ export const insurableObjectType = [
 //RISK
 
 export const riskTypeArr = [
-  { value: "all_risk_vehicle", label: "Todo Riesgo - Vehiculo" },
+  { value: "all_risk_vehicle", label: "Todo Riesgo - Vehículo" },
   { value: "soat_risk_vehicle", label: "SOAT" },
 ];
 
@@ -26,36 +26,54 @@ export const plateTypeArr = [
 ];
 
 //TODO: Check label values
-export const vehicleUseTypeArr = [
-  { value: "particular", label: "Particular" },
-  { value: "bus_escolar", label: "Bus Escolar" },
-  { value: "bus_interdepartamental", label: "Bus Interdepartamental" },
-  { value: "bus_intermunicipal", label: "Bus Intermunicipal" },
-  { value: "bus_tripulaciones", label: "Bus Tripulaciones" },
-  { value: "bus_urbano", label: "Bus Urbano" },
-  { value: "carga_carroceria_especial", label: "Carga - Carrocería Especial" },
-  { value: "carga_mercancia_propia", label: "Carga - Mercancía Propia" },
-  { value: "carga_mercancia_terceros", label: "Carga - Mercancía de Terceros" },
-  { value: "carga_trailer_remolque", label: "Carga - Trailer Remolque" },
-  {
-    value: "carga_transporte_combustible",
-    label: "Carga - Transporte de Combustible",
-  },
-  { value: "taxi_hotelero", label: "Taxi Hotelero" },
-  { value: "taxi_urbano", label: "Taxi Urbano" },
-  {
-    value: "utilitario_alquiler_empresa_pasajeros_mercancia",
-    label: "Utilitario - Alquiler Empresa Pasajeros Mercancía",
-  },
-  {
-    value: "utilitario_transporte_urbana_mercancia_propia",
-    label: "Utilitario - Transporte Urbano Mercancía Propia",
-  },
-  {
-    value: "utilitario_transporte_urbana_mercancia_terceros",
-    label: "Utilitario - Transporte Urbano Mercancía de Terceros",
-  },
-];
+export const vehicleUseTypeArr = {
+  groupBus: [
+    {value: "transporte_pasajeros_escolar", label: "Transporte pasajeros escolar"},
+    {value: "transporte_pasajeros_tripulaciones", label: "Transporte pasajeros tripulaciones"},
+    {value: "transporte_pasajeros_urbano", label: "Transporte pasajeros urbano"},
+    {value: "transporte_pasajeros_intermunicipal", label: "Transporte pasajeros intermunicipal"},
+    {value: "transporte_pasajeros_interdepartamental", label: "Transporte pasajeros interdepartamental"},
+  ],
+  groupTruck: [
+    {value: "carga_transporte_mercancia_propia", label: "Transporte mercancia propia"},
+    {value: "carga_transporte_mercancia_terceros", label: "Transporte mercancia de terceros"},
+    {value: "carga_carroceria_especial", label: "Carrocería especial"},
+    {value: "carga_transporte_combustible", label: "Transporte de combustible"},
+  ],
+  groupCar: [
+    {value: "particular", label: "Particular"},
+    {value: "taxi_hotelero", label: "Taxi Hotelero"},
+    {value: "taxi_urbano", label: "Taxi urbano"},
+    {value: "utilitario_alquiler_empresas_pasajeros_mercancia", label: "Alquiler empresas: pasajeros, mercancía"},
+    {value: "utilitario_transporte_urbana_mercancia_propia", label: "Transporte urbano de mercancía propia"},
+    {value: "utilitario_transporte_urbana_mercancia_terceros", label: "Transporte urbano de mercancía de terceros"},
+  ],
+  groupPassTruck: [
+    {value: "particular", label: "Particular"},
+    {value: "taxi_hotelero", label: "Taxi Hotelero"},
+    {value: "taxi_urbano", label: "Taxi urbano"},
+    {value: "utilitario_alquiler_empresas_pasajeros_mercancia", label: "Alquiler empresas: pasajeros, mercancía"},
+    {value: "utilitario_transporte_urbana_mercancia_propia", label: "Transporte urbano de mercancía propia"},
+    {value: "utilitario_transporte_urbana_mercancia_terceros", label: "Transporte urbano de mercancía de terceros"},
+    {value: "transporte_pasajeros_escolar", label: "Transporte pasajeros escolar"},
+    {value: "transporte_pasajeros_tripulaciones", label: "Transporte pasajeros tripulaciones"},
+    {value: "transporte_pasajeros_urbano", label: "Transporte pasajeros urbano"},
+    {value: "transporte_pasajeros_intermunicipal", label: "Transporte pasajeros intermunicipal"},
+    {value: "transporte_pasajeros_interdepartamental", label: "Transporte pasajeros interdepartamental"},
+  ],
+  groupBikes: [
+    {value: "particular", label: "Particular"},
+    {value: "trabajo", label: "Trabajo"},
+  ],
+  groupRep: [
+    {value: "utilitario_alquiler_empresas_pasajeros_mercancia", label: "Alquiler empresas: pasajeros, mercancía"},
+    {value: "utilitario_transporte_urbana_mercancia_propia", label: "Transporte urbano de mercancía propia"},
+    {value: "utilitario_transporte_urbana_mercancia_terceros", label: "Transporte urbano de mercancía de terceros"},
+  ],
+  groupTow: [
+    {value: "trailer_remolque", label: "Trailer - Remolque"},
+  ]
+};
 
 export const protectionTypeArr = [
   { value: "alarma", label: "Alarma" }, //TODO: Alarma by default
@@ -153,7 +171,7 @@ export const partyRolArr = [
 ];
 
 export const actualSituation = [
-  { value: "new", label: "Buscando póliza para comprar vehiculo" },
+  { value: "new", label: "Buscando póliza para comprar vehículo" },
   { value: "renovate", label: "Buscando ofertas para renovar mi póliza" },
   { value: "quote", label: "Probando cotizaciones en linea" },
 ];
@@ -167,14 +185,4 @@ export const reqDate = [
 
 export const defaultData = {
   plate: "SDU998",
-  placeData: {
-    "id": 1006,
-    "country_name": "CO-VAL-CAL1",
-    "country_code": "CO-VAL-CAL1",
-    "state_name": "Valle del Cauca",
-    "state_code": "76",
-    "city_name": "Cali",
-    "city_code": "1",
-    "code": "76001"
-  },
 }

@@ -103,3 +103,18 @@ export const formatValue = (value) => {
   return formatedValue;
 };
 
+export const validField = (value) => {
+  return value.trim() === "" || value.toLowerCase() === "no_cubre" ? false : true;
+};
+
+export const formatDate = (value) => {
+  return new Date(value)
+  .toISOString()
+  .split("T")[0];
+}
+
+export const capitalizeStr = (str) => {
+  str = str.toLowerCase();
+  str = str.charAt(0).toUpperCase() + str.slice(1);
+  return str;
+}

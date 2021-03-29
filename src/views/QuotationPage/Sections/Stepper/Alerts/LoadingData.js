@@ -10,7 +10,7 @@ export default function LoadingData() {
   return (
     <InfoArea
       title="Cargando"
-      description="Estamos cargando la información de tu vehiculo"
+      description="Estamos cargando la información de tu vehículo"
       icon={Loop}
       iconColor="warning"
     />

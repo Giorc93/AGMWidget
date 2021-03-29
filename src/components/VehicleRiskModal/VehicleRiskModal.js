@@ -61,6 +61,44 @@ export default function VehicleRiskModal(props) {
       : { vehiclePrice, accesoriesPrice, inAgency, placeData };
   const vehicleData = props.vehicleData;
   const vehicleRisk = vehicleData.vehicle_risk;
+  var vehicleUseOptions;
+  switch (vehicleData.type) {
+    case "BUS":
+    case "BUSETA":
+    case "MICROBUS":
+      vehicleUseOptions = vehicleUseTypeArr.groupBus;
+      break;
+    case "CAMION":
+    case "FURGON":
+    case "VOLQUETA":
+    case "REMOLCADOR":
+    case "CARROTANQUE":
+      vehicleUseOptions = vehicleUseTypeArr.groupTruck;
+      break;
+    case "CAMIONETA PASAJ.":
+      vehicleUseOptions = vehicleUseTypeArr.groupPassTruck;
+      break;
+    case "AUTOMOVIL":
+    case "CAMPERO":
+    case "PICKUP SENCILLA":
+    case "PICKUP DOBLE CAB":
+      vehicleUseOptions = vehicleUseTypeArr.groupCar;
+      break;
+    case "MOTOCARRO":
+    case "MOTOCICLETA":
+    case "CUATRIMOTO":
+      vehicleUseOptions = vehicleUseTypeArr.groupBikes;
+      break;
+    case "CAMIONETA REPAR":
+    case "FURGONETA":
+      vehicleUseOptions = vehicleUseTypeArr.groupRep;
+      break;
+    case "REMOLQUE":
+      vehicleUseOptions = vehicleUseTypeArr.groupTow;
+      break;
+    default:
+      vehicleUseOptions = vehicleUseTypeArr.Car;
+  }
   const citiesList = useSelector(selectCitiesListData);
   const [placeDataState, setPlaceDataState] = useState(undefined);
   const { register, handleSubmit, control, watch, errors } = useForm({
@@ -79,25 +117,10 @@ export default function VehicleRiskModal(props) {
     placeDataState !== undefined && dispatch(setPlaceData(placeDataState));
   };
   const handlePlaceDataChange = (e, v, r) => {
-    console.log(v);
     r === "select-option" && setPlaceDataState(v);
     r === "clear" && setPlaceDataState(undefined);
   };
-  useEffect(() => {
-    searchType === "reference" &&
-      dispatch(
-        setPlaceData({
-          id: 1006,
-          country_name: "CO-VAL-CAL1",
-          country_code: "CO-VAL-CAL1",
-          state_name: "Valle del Cauca",
-          state_code: "76",
-          city_name: "Cali",
-          city_code: "1",
-          code: "76001",
-        })
-      );
-  }, []);
+
   useEffect(() => {
     handleDispatch();
   }, [placeDataState]);
@@ -144,7 +167,8 @@ export default function VehicleRiskModal(props) {
                 vehicleData.model >= moment().year()) && (
                 <GridItem xs={12}>
                   <CustomRadioBtn
-                    label="¿Vehiculo 0km en concesionario?"
+                    label="¿Vehículo 0km en concesionario?"
+                    color="primary"
                     defaultValue="false"
                     control={control}
                     name="inAgency"
@@ -160,7 +184,7 @@ export default function VehicleRiskModal(props) {
                   <CustomInput
                     type="text"
                     name="vehiclePrice"
-                    label="Precio del Vehiculo"
+                    label="Precio del Vehículo"
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -187,7 +211,7 @@ export default function VehicleRiskModal(props) {
                   <CustomInput
                     type="text"
                     name="vehiclePrice"
-                    label="Precio del Vehiculo"
+                    label="Precio del Vehículo"
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -214,11 +238,11 @@ export default function VehicleRiskModal(props) {
               </GridItem>
               <GridItem container xs={12} md={6}>
                 <CustomSelect
-                  options={vehicleUseTypeArr}
+                  options={vehicleUseOptions}
                   name="useType"
                   control={control}
                   ref={register}
-                  defaultValue={vehicleUseTypeArr[0].value}
+                  defaultValue={vehicleUseOptions[0].value}
                   label="Tipo de Uso"
                 />
               </GridItem>
@@ -232,31 +256,31 @@ export default function VehicleRiskModal(props) {
                   error={!!errors.accesoriesPrice}
                   helperText={
                     errors?.accesoriesPrice?.message ||
-                    "Ingresa 0 si el vehiculo no tiene accesorios"
+                    "Ingresa 0 si el vehículo no tiene accesorios"
                   }
                   defaultValue={"0"}
                 />
               </GridItem>
-              {searchType === "plate" && (
-                <GridItem xs={12} md={6}>
-                  <CustomAutocompleteObj
-                    ref={register({ required: true })}
-                    name="placeData"
-                    label="Ciudad de Circulación"
-                    loading={citiesList.status === "loading" ? true : false}
-                    loadingtext="Cargando listado de ciudades"
-                    onChange={handlePlaceDataChange}
-                    nooptionstext={
-                      citiesList.status === "failed"
-                        ? "Error al cargar el listado de ciudades"
-                        : "Ciudad no encontrada"
-                    }
-                    options={citiesList.data}
-                    error={!!errors.placeData}
-                    helperText={errors?.placeData?.message}
-                  />
-                </GridItem>
-              )}
+
+              <GridItem xs={12} md={6}>
+                <CustomAutocompleteObj
+                  ref={register({ required: true })}
+                  name="placeData"
+                  label="Ciudad de Circulación"
+                  loading={citiesList.status === "loading" ? true : false}
+                  loadingtext="Cargando listado de ciudades"
+                  onChange={handlePlaceDataChange}
+                  nooptionstext={
+                    citiesList.status === "failed"
+                      ? "Error al cargar el listado de ciudades"
+                      : "Ciudad no encontrada"
+                  }
+                  options={citiesList.data}
+                  error={!!errors.placeData}
+                  helperText={errors?.placeData?.message}
+                />
+              </GridItem>
+
               <GridItem
                 container
                 justify="center"

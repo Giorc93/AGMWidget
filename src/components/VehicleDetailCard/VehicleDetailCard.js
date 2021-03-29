@@ -17,7 +17,6 @@ import { defaultData } from "utils/inputArrays";
 // core components
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
 import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridContainer";
@@ -33,7 +32,7 @@ const style = {
   },
   vehicleSpec: {
     margin: 0,
-    marginLeft: "20px"
+    marginLeft: "20px",
   },
 };
 
@@ -72,20 +71,11 @@ export default function CardDetailCard(props) {
 
   return (
     <Card style={{ width: 400 }}>
-      <CardHeader
-        style={{
-          textAlign: "center",
-          textTransform: "uppercase",
-          fontWeight: "bold",
-          fontSize: "20px",
-        }}
-      >
-        {props.dataLength > 1 ? vehicleData.brand : vehicleData.plate}
-      </CardHeader>
       <CardBody>
-        <h4 className={classes.cardTitle} style={{ textAlign: "justify" }}>
+        {props.dataLength <= 1 && <h3 className={classes.cardTitle} style={{ textAlign: "center" }}>{vehicleData.plate.toUpperCase()}</h3>}
+        <h5 className={classes.cardTitle} style={{ textAlign: "justify" }}>
           {vehicleData.type} {vehicleData.brand} {vehicleReference}
-        </h4>
+        </h5>
         <GridContainer className={classes.gridContainer} spacing={2}>
           <GridItem
             className={classes.gridItem}
@@ -157,11 +147,8 @@ export default function CardDetailCard(props) {
                 sm={6}
                 className={classes.gridItem}
               >
-                <Button
-                  size="sm"
-                  onClick={() => setSearchModal(true)}
-                >
-                  No es mi vehiculo
+                <Button size="sm" onClick={() => setSearchModal(true)}>
+                  No es mi vehículo
                 </Button>
               </GridItem>
               <GridItem
@@ -172,7 +159,7 @@ export default function CardDetailCard(props) {
                 className={classes.gridItem}
               >
                 <Button color="info" onClick={() => handleSelectVehicle()}>
-                  ¡Es mi vehiculo!
+                  ¡Es mi vehículo!
                 </Button>
               </GridItem>
             </React.Fragment>
@@ -186,7 +173,7 @@ export default function CardDetailCard(props) {
                 className={classes.gridItem}
               >
                 <Button color="info" onClick={() => handleSelectVehicle()}>
-                  ¡Es mi vehiculo!
+                  ¡Es mi vehículo!
                 </Button>
               </GridItem>
             </React.Fragment>

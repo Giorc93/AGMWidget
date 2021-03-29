@@ -2,7 +2,7 @@ import { whiteColor, hexToRgb } from "assets/jss/material-kit-pro-react.js";
 
 const cardBodyStyle = {
   cardBody: {
-    padding: "0.9375rem 1.875rem",
+    padding: "0.8rem 1rem",
     flex: "1 1 auto",
     WebkitBoxFlex: "1"
   },

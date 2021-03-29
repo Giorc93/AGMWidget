@@ -35,7 +35,7 @@ const Step3 = (props) => {
           style={{ textAlign: "center" }}
           onClick={() => console.log(searchType)}
         >
-          Confirma Tu Vehiculo
+          Confirma tu vehículo
         </h2>
       </GridItem>
       <GridItem container justify="center" xs={12} spacing={1}>

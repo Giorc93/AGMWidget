@@ -7,6 +7,7 @@ import {
   title,
   cardTitle,
   grayColor,
+  infoColor,
   roseColor
 } from "assets/jss/material-kit-pro-react.js";
 
@@ -29,17 +30,30 @@ const productStyle = {
   },
   section: {
     ...section,
-    padding: "70px 0px"
+    padding: "70px 0px 0px 0px"
   },
   title: {
     ...title,
+    marginTop: 0,
     marginBottom: 0
+  },
+  subTitle: {
+    ...title,
+    fontSize: "1.2rem",
+    textTransform: "uppercase",
+    color: infoColor[1],
+    marginTop: 0,
+    marginBottom: 0
+  },
+  attrTitle: {
+    fontSize: "1rem",
+    textTransform: "none",
   },
   sectionGray: {
     background: grayColor[14]
   },
   mainPrice: {
-    margin: "10px 0px 25px"
+    margin: "0",
   },
   textCenter: {
     textAlign: "center!important"
@@ -151,6 +165,9 @@ const productStyle = {
     marginBottom: "5%",
     float: "left"
   },
+  insThumb: {
+    height: "100%",
+  },
   block: {
     color: "inherit",
     padding: "0.9375rem",
@@ -186,7 +203,11 @@ const productStyle = {
     width: "18px",
     height: "18px",
     position: "relative"
-  }
+  },
+  divider: {
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
 };
 
 export default productStyle;

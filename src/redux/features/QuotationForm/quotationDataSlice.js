@@ -45,7 +45,6 @@ const quotationDataSlice = createSlice({
     },
     setReferenceData: (state, action) => {
       state.vehicleData = {...state.vehicleData, plate: action.payload.plate};
-      state.placeData = action.payload.placeData;
     },
   },
 });

@@ -22,10 +22,10 @@ const useStyles = makeStyles(formStyle);
 
 function getSteps() {
   return [
-    "Datos del vehiculo",
+    "Datos del vehículo",
     "Número de documento",
-    "Confirma Tu vehiculo",
-    "Generar cotización",
+    "Confirma tu vehículo",
+    "Información del propietario",
   ];
 }
 

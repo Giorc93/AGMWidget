@@ -1,3 +1,4 @@
+import { infoColor } from "assets/jss/material-kit-pro-react";
 import {
   section,
   container,
@@ -94,6 +95,16 @@ const styles = {
   textLeft: {
     textAlign: "left",
   },
+  detailItem: {
+    padding: 0,
+  },
+  attDesc: {
+    marginLeft: "18px",
+  },
+  price: {
+    color: infoColor[1],
+    margin: 0,
+  }
 };
 
 export default styles;

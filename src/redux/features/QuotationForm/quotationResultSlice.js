@@ -54,6 +54,9 @@ const initialState = {
     data: "",
     status: "",
   },
+  productDetail: {},
+  attributeGroups: [],
+  totalProducts: [],
 };
 
 const quotationResultSlice = createSlice({
@@ -61,12 +64,22 @@ const quotationResultSlice = createSlice({
   initialState,
   reducers: {
     resetQuotationResultState: (state) => initialState,
+    setProductDetail: (state, action) => {
+      state.productDetail = action.payload;
+    },
+    setAttributeGroups: (state, action) => {
+      state.attributeGroups = action.payload;
+    },
+    setTotalProducts: (state, action) => {
+      state.totalProducts = action.payload;
+    }
   },
   extraReducers: {
     [getQuotation.pending]: (state) => {
       state.urlData.status = "loading";
     },
     [getQuotation.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.urlData.data = action.payload;
       state.urlData.status = "success";
     },
@@ -86,11 +99,17 @@ const quotationResultSlice = createSlice({
   },
 });
 
-export const { resetQuotationResultState } = quotationResultSlice.actions;
+export const { resetQuotationResultState, setProductDetail, setAttributeGroups, setTotalProducts} = quotationResultSlice.actions;
 
 export const selectQuotationResultURL = (state) =>
   state.quotationResult.urlData;
 export const selectQuotationResultJSON = (state) =>
   state.quotationResult.quotationJSON;
+export const selectProductDetail = (state) =>
+  state.quotationResult.productDetail;
+export const selectAttributeGroups = (state) =>
+  state.quotationResult.attributeGroups;
+export const selectTotalProducts = (state) =>
+  state.quotationResult.totalProducts;
 
 export default quotationResultSlice.reducer;

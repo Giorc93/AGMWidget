@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
-//
-import ProductDetailModal from "components/ProductDetailModal/ProducDetailModal";
 //icons
-import Add from "@material-ui/icons/Add";
-import Gavel from "@material-ui/icons/Gavel";
-import Car from "@material-ui/icons/DriveEta";
-import Person from "@material-ui/icons/Person";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
 // core components
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
 import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
+// fn
+import { validField } from "utils/functions";
+//redux
+import {
+  setProductDetail,
+  setAttributeGroups,
+} from "redux/features/QuotationForm/quotationResultSlice";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceSections/productsStyle.js";
 
@@ -25,6 +28,15 @@ const style = {
   gridContainer: {
     marginTop: "1rem",
   },
+  insThumb: {
+    display: "block",
+    margin: "0 auto",
+    width: "120px",
+    height: "80px",
+    borderRadius: "0.5rem",
+    boxShadow:
+      "0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%)",
+  },
 };
 
 const useStyles = makeStyles(style);
@@ -32,63 +44,139 @@ const useStyles = makeStyles(style);
 export default function ProductDetailCard(props) {
   const classes = useStyles();
   const product = props.data;
+  const dispatch = useDispatch();
+  const history = useHistory();
   //Modals
-  const [detailModal, setDetailModal] = useState(false);
+  const handleDetails = (data) => {
+    dispatch(setAttributeGroups(props.groups));
+    dispatch(setProductDetail(data));
+    history.push("/productDetail");
+  };
   return (
-    <Card product>
-      <CardHeader image>
-        <img src={product[1].thumb} height="100" alt=".." />
-      </CardHeader>
-      <CardBody plain>
-        <h4 className={classes.cardTitle}>{product[1].name}</h4>
-        <GridContainer
-          justify="center"
-          spacing={2}
-          className={classes.gridContainer}
-        >
-          <GridItem container xs={12}>
-            <GridItem xs={12}>
-              <p color="info">
-                <b>Responsabilidad Civil: </b>
-                {product[1].attribute["21"] === "" || product[1].attribute["21"] === "No_Cubre" ? "No Cubre" : product[1].attribute["21"]} 
-              </p>
-              <p color="info">
-                <b>Perdida total daños: </b>
-                {product[1].attribute["28"] === "" || product[1].attribute["28"] === "No_Cubre" ? "No Cubre" : product[1].attribute["28"]} 
-              </p>
-              <p color="info">
-                <b>Perdida parcial daños: </b>
-                {product[1].attribute["29"] === "" || product[1].attribute["29"] === "No_Cubre" ? "No Cubre" : product[1].attribute["29"]} 
-              </p>
-              <p color="info">
-                <b>Grua: </b>
-                {product[1].attribute["57"] === "" || product[1].attribute["57"] === "No_Cubre" ? "No Cubre" : "Si"} 
-              </p>
-              <p color="info">
-                <b>Vehiculo de reemplazo: </b>
-                {product[1].attribute["38"] === "" || product[1].attribute["38"] === "No_Cubre" ? "No Cubre" : product[1].attribute["38"]} 
-              </p>
-              <p color="info">
-                <b>Conductor elegido: </b>
-                {product[1].attribute["56"] === "" || product[1].attribute["56"] === "No_Cubre" ? "No Cubre" : product[1].attribute["56"]} 
-              </p>
-            </GridItem>
-            <GridItem container justify="center">
-              <h5>{product[1].price}</h5>
-            </GridItem>
-            <Button color="info" fullWidth>
-              Ver más
-            </Button>
+    <Card product style={{width: "260px"}}>
+      <CardBody>
+        <img className={classes.insThumb} src={product[1].thumb} alt=".." />
+        <h5 className={classes.cardTitle}>{product[1].name}</h5>
+        <GridContainer className={classes.gridContainer}>
+          <GridItem className={classes.detailItem}>
+            {validField(product[1].attribute["21"]) ? (
+              <span>
+                <i
+                  className="far fa-check-circle"
+                  style={{ color: "green", marginRight: "5px" }}
+                ></i>
+                Responsabilidad Civil: <p className={classes.attDesc}><i>{product[1].attribute["21"]}</i></p>
+              </span>
+            ) : (<span>
+              <i
+                className="far fa-times-circle"
+                style={{ color: "red", marginRight: "5px" }}
+              ></i>
+              Responsabilidad Civil: <p className={classes.attDesc}><i>No cubre</i></p>
+            </span>
+            )}
           </GridItem>
+          <GridItem className={classes.detailItem}>
+            {validField(product[1].attribute["28"]) ? (
+              <span>
+                <i
+                  className="far fa-check-circle"
+                  style={{ color: "green", marginRight: "5px" }}
+                ></i>
+                Perdida total daños: <p className={classes.attDesc}><i>{product[1].attribute["28"]}</i></p>
+              </span>
+            ) : (<span>
+              <i
+                className="far fa-times-circle"
+                style={{ color: "red", marginRight: "5px" }}
+              ></i>
+              Perdida total daños: <p className={classes.attDesc}><i>No cubre</i></p>
+            </span>
+            )}
+          </GridItem>
+          <GridItem className={classes.detailItem}>
+            {validField(product[1].attribute["29"]) ? (
+              <span>
+                <i
+                  className="far fa-check-circle"
+                  style={{ color: "green", marginRight: "5px" }}
+                ></i>
+                Perdida parcial daños: <p className={classes.attDesc}><i>{product[1].attribute["29"]}</i></p>
+              </span>
+            ) : (<span>
+              <i
+                className="far fa-times-circle"
+                style={{ color: "red", marginRight: "5px" }}
+              ></i>
+              Perdida parcial daños: <p className={classes.attDesc}><i>No cubre</i></p>
+            </span>
+            )}
+          </GridItem>
+          <GridItem className={classes.detailItem}>
+            {validField(product[1].attribute["57"]) ? (
+              <p>
+                <i
+                  className="far fa-check-circle"
+                  style={{ color: "green", marginRight: "5px" }}
+                ></i>
+                Grúa: <i>Sí</i>
+              </p>
+            ) : (<p>
+              <i
+                className="far fa-times-circle"
+                style={{ color: "red", marginRight: "5px" }}
+              ></i>
+              Grúa: <i>No cubre</i>
+            </p>
+            )}
+          </GridItem>
+          <GridItem className={classes.detailItem}>
+            {validField(product[1].attribute["38"]) ? (
+              <p>
+                <i
+                  className="far fa-check-circle"
+                  style={{ color: "green", marginRight: "5px" }}
+                ></i>
+                Vehiculo de reemplazo: <i>Sí</i>
+              </p>
+            ) : (<p>
+              <i
+                className="far fa-times-circle"
+                style={{ color: "red", marginRight: "5px" }}
+              ></i>
+              Vehiculo de reemplazo: <i>No cubre</i>
+            </p>
+            )}
+          </GridItem>
+          <GridItem className={classes.detailItem}>
+            {validField(product[1].attribute["56"]) ? (
+              <p>
+                <i
+                  className="far fa-check-circle"
+                  style={{ color: "green", marginRight: "5px" }}
+                ></i>
+                Conductor elegido: <i>Sí</i>
+              </p>
+            ) : (<p>
+              <i
+                className="far fa-times-circle"
+                style={{ color: "red", marginRight: "5px" }}
+              ></i>
+              Conductor elegido: <i>No cubre</i>
+            </p>
+            )}
+          </GridItem>
+          <GridItem container justify="center">
+            <h5 className={classes.price}>{product[1].price}</h5>
+            {product[1].cuotaInicialFinanciacion ==="Si" && (
+              <i>O {product[1].numeroCuotaFinanciacion} cuotas de {product[1].valorCuotaFinanciacion}</i>
+            )}
+          </GridItem>
+          <Button color="info" onClick={() => handleDetails(product)} fullWidth>
+            Ver más
+          </Button>
         </GridContainer>
       </CardBody>
-      <ProductDetailModal
-        showModal={detailModal}
-        handleModal={setDetailModal}
-        data={product}
-        groups={props.groups}
-        comp={props.comp}
-      />
     </Card>
   );
 }

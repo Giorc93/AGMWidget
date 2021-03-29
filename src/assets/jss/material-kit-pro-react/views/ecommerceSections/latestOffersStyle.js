@@ -16,7 +16,7 @@ const styles = {
   ...tooltipsStyle,
   section: {
     ...section,
-    padding: "20px 0px",
+    padding: "0px 0px",
   },
   coloredShadow,
   cardDescription: {

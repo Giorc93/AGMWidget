@@ -43,7 +43,7 @@ const Step2 = (props) => {
     <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <GridContainer justify="center" spacing={2}>
         <GridItem xs={12}>
-          <h3 style={{ textAlign: "center" }}>Número de documento del propietario del vehiculo</h3>
+          <h3 style={{ textAlign: "center" }}>Número de documento del propietario del vehículo</h3>
         </GridItem>
         <GridItem container xs={12} sm={4}>
           <CustomSelect

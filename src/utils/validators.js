@@ -74,16 +74,16 @@ export const vehiclePrice = yup.string().when("inAgency", {
   is: "true",
   then: yup
     .string()
-    .required("Ingresa el precio del vehiculo")
+    .required("Ingresa el precio del vehículo")
     .matches(/^(^[0-9]*)$/, "Precio inválido"),
   otherwise: yup.string().notRequired(),
 });
 
 export const accesoriesPrice = yup
   .string()
-  .required("Ingresa 0 si el vehiculo no tiene accesorios")
+  .required("Ingresa 0 si el vehículo no tiene accesorios")
   .matches(/^(^[0-9]*)$/, "Precio inválido");
 
 export const placeData = yup
   .string()
-  .required("Selecciona la ciudad de circulación del vehiculo");
+  .required("Selecciona la ciudad de circulación del vehículo");
