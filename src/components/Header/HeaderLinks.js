@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import GridContainer from '@material-ui/core/Container'
 
 // core components
 import Button from "components/CustomButtons/Button.js";
@@ -85,7 +84,11 @@ export default function HeaderLinks(props) {
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <People />  
+        <ul className={classes.infoList}>
+          <li className={classes.infoListItem}>{props.info.accountname}</li>
+          <li className={classes.infoListItem}>{props.info.email1}</li>
+          <li className={classes.infoListItem}>{props.info.bill_state} - {props.info.bill_street}</li>
+        </ul>
       </ListItem>
     </List>
   );

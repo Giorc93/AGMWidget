@@ -200,7 +200,14 @@ const headerLinksStyle = theme => ({
     MsFlexAlign: "center",
     alignItems: "center"
   },
-  mlAuto
+  mlAuto,
+  infoList:{
+    margin: 0,
+    padding: 0,
+  },
+  infoListItem: {
+    listStyle: "none",
+  }
 });
 
 export default headerLinksStyle;

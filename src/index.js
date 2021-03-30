@@ -26,11 +26,13 @@ import { Provider } from "react-redux";
 import "assets/scss/material-kit-pro-react.scss?v=1.9.0";
 
 var hist = createBrowserHistory();
+var root = document.getElementById("AGMroot");
+var idToken = root.getAttribute("token");
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
-      <Routing />
+      <Routing token={idToken}/>
     </Router>
   </Provider>,
   document.getElementById("AGMroot")

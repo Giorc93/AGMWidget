@@ -34,7 +34,7 @@ import { useHistory } from "react-router";
 
 const useStyles = makeStyles(productStyle);
 
-export default function ProductPage({ ...rest }) {
+export default function ProductPage() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
@@ -46,17 +46,6 @@ export default function ProductPage({ ...rest }) {
 
   return (
     <div className={classes.productPage}>
-      <Header
-        color="transparent"
-        brand="Nombre Agencia"
-        links={<HeaderLinks dropdownHoverColor="info" />}
-        fixed
-        changeColorOnScroll={{
-          height: 50,
-          color: "info",
-        }}
-        {...rest}
-      />
       <Parallax
         height="50vh"
         gradient="linear-gradient(90deg, rgba(73,9,211,1) 20%, rgba(84,243,255,1) 100%)"
@@ -86,7 +75,11 @@ export default function ProductPage({ ...rest }) {
                         {productData[1].valorCuotaFinanciacion}.
                       </i>
                     </p>
-                    <Button color="info" size="sm" onClick={() => history.push("/compareTable")}>
+                    <Button
+                      color="info"
+                      size="sm"
+                      onClick={() => history.push("/compareTable")}
+                    >
                       Comparar
                     </Button>
                   </GridItem>
@@ -126,7 +119,7 @@ export default function ProductPage({ ...rest }) {
                 ))}
               </GridItem>
             </GridContainer>
-            <Typography color="textSecondary" style={{marginTop: "1rem"}}>
+            <Typography color="textSecondary" style={{ marginTop: "1rem" }}>
               Cada cotización es provisional y no implica aceptación del riesgo,
               todas las condiciones incluyendo precios, tasas de financiación y
               coberturas están sujetas a cambios, revisión, verificación y
@@ -137,29 +130,6 @@ export default function ProductPage({ ...rest }) {
           </div>
         </div>
       </div>
-      <Footer
-        content={
-          <div>
-            <div className={classes.left}>
-              <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="#" target="_blank" className={classes.block}>
-                    Términos de Uso
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="#" target="_blank" className={classes.block}>
-                    Politicas de Privacidad
-                  </a>
-                </ListItem>
-              </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} by AgenteMotor
-            </div>
-          </div>
-        }
-      />
     </div>
   );
 }

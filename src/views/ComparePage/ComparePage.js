@@ -68,17 +68,6 @@ export default function ProductPage({ ...rest }) {
 
   return (
     <div className={classes.productPage}>
-      <Header
-        color="transparent"
-        brand="Nombre Agencia"
-        links={<HeaderLinks dropdownHoverColor="info" />}
-        fixed
-        changeColorOnScroll={{
-          height: 50,
-          color: "info",
-        }}
-        {...rest}
-      />
       <Parallax
         height="50vh"
         gradient="linear-gradient(90deg, rgba(73,9,211,1) 20%, rgba(84,243,255,1) 100%)"
@@ -87,8 +76,10 @@ export default function ProductPage({ ...rest }) {
         <div className={classes.container}>
           <div className={classNames(classes.main, classes.mainRaised)}>
             <h2 className={classes.title}>Comparativa De Productos</h2>
-            <h3 className={classes.mainPrice}>Comparativa general de los productos encontrados</h3>
-            <TableContainer component={Paper} style={{marginTop: "1rem"}}>
+            <h3 className={classes.mainPrice}>
+              Comparativa general de los productos encontrados
+            </h3>
+            <TableContainer component={Paper} style={{ marginTop: "1rem" }}>
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
@@ -155,29 +146,6 @@ export default function ProductPage({ ...rest }) {
           </div>
         </div>
       </div>
-      <Footer
-        content={
-          <div>
-            <div className={classes.left}>
-              <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="#" target="_blank" className={classes.block}>
-                    Términos de Uso
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="#" target="_blank" className={classes.block}>
-                    Politicas de Privacidad
-                  </a>
-                </ListItem>
-              </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} by AgenteMotor
-            </div>
-          </div>
-        }
-      />
     </div>
   );
 }

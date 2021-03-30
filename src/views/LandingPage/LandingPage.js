@@ -28,7 +28,7 @@ import SectionWork from "./Sections/SectionWork.js";
 
 const useStyles = makeStyles(landingPageStyle);
 
-export default function LandingPage({ ...rest }) {
+export default function LandingPage() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
@@ -37,17 +37,6 @@ export default function LandingPage({ ...rest }) {
   const history = useHistory();
   return (
     <div>
-      <Header
-        color="transparent"
-        brand="agentemotor"
-        links={<HeaderLinks dropdownHoverColor="info" />}
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "info",
-        }}
-        {...rest}
-      />
       <Parallax gradient="linear-gradient(90deg, rgba(73,9,211,1) 20%, rgba(84,243,255,1) 100%)">
         <div className={classes.container}>
           <GridContainer>
@@ -103,29 +92,6 @@ export default function LandingPage({ ...rest }) {
           <SectionWork />
         </div>
       </div>
-      <Footer
-        content={
-          <div>
-            <div className={classes.left}>
-              <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="#" target="_blank" className={classes.block}>
-                    Términos de Uso
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="#" target="_blank" className={classes.block}>
-                    Politicas de Privacidad
-                  </a>
-                </ListItem>
-              </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} by AgenteMotor
-            </div>
-          </div>
-        }
-      />
     </div>
   );
 }
