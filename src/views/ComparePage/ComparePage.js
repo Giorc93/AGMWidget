@@ -3,9 +3,6 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -17,15 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/CustomParallax.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Footer from "components/Footer/Footer.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody";
-import Button from "components/CustomButtons/Button";
 //redux
 import { useSelector } from "react-redux";
 import {
@@ -56,12 +45,11 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles(productStyle);
 
-export default function ProductPage({ ...rest }) {
+export default function ProductPage() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
-  const productData = useSelector(selectProductDetail);
   const attGroups = useSelector(selectAttributeGroups);
   const totalProducts = useSelector(selectTotalProducts);
   const classes = useStyles();
@@ -73,7 +61,7 @@ export default function ProductPage({ ...rest }) {
         gradient="linear-gradient(90deg, rgba(73,9,211,1) 20%, rgba(84,243,255,1) 100%)"
       ></Parallax>
       <div className={classNames(classes.section, classes.sectionGray)}>
-        <div className={classes.container}>
+        <div className={classes.container} style={{maxWidth: "100%"}}>
           <div className={classNames(classes.main, classes.mainRaised)}>
             <h2 className={classes.title}>Comparativa De Productos</h2>
             <h3 className={classes.mainPrice}>
@@ -83,10 +71,10 @@ export default function ProductPage({ ...rest }) {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>Caracteristicas</StyledTableCell>
+                    <StyledTableCell>CARACTERISTICAS</StyledTableCell>
                     {totalProducts.map((prod) => (
                       <StyledTableCell key={prod[0]} align="center">
-                        {prod[1].name}
+                        <h6>{prod[1].name}</h6>
                       </StyledTableCell>
                     ))}
                   </TableRow>
@@ -99,13 +87,13 @@ export default function ProductPage({ ...rest }) {
                           align="left"
                           colSpan={totalProducts.length + 1}
                         >
-                          {group[1].name}
+                          <h6 style={{fontSize: "1rem"}}>{group[1].name}</h6>
                         </StyledTableCell>
                       </StyledTableRow>
                       {Object.keys(group[1].attribute).map((el, i) => (
                         <TableRow key={i}>
                           <TableCell align="left">
-                            {group[1].attribute[el].name}
+                            <b>{group[1].attribute[el].name}</b>
                           </TableCell>
                           {totalProducts.map((prod, i) => (
                             <TableCell>
