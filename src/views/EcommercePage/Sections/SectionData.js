@@ -45,8 +45,8 @@ export default function SectionData() {
           activeColor="info"
           collapses={[
             {
-              title: `Información Riesgo`,
-              //title: `Seguro para ${name} ${surname}. ${idType}: ${idNumber}. Género: ${gender}. Fecha de nacimiento: ${formatDate(new Date())}`,
+              //title: `Información Riesgo`,
+              title: `Seguro para ${name} ${surname}. ${idType}: ${idNumber}. Género: ${gender}. Fecha de nacimiento: ${formatDate(new Date())}`,
               //subtTitle: `${type} ${brand} ${codification.line1} ${codification.line2} ${codification.line3} . Modelo: ${model} Código Fasecolda: ${code}`,
               content: (
                 <GridContainer>

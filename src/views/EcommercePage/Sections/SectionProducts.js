@@ -1,12 +1,13 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
+import Typography from "@material-ui/core/Typography";
 // @material-ui icons
 // core components
 import ProductDetailCard from "components/ProductDetailCard/ProductDetailCard";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+import Button from "components/CustomButtons/Button.js";
 // redux
 import {
   selectQuotationResultJSON,
@@ -15,7 +16,7 @@ import {
 // socket
 import { socket } from "utils/global";
 import { useSelector, useDispatch } from "react-redux";
-import { setTotalProducts } from 'redux/features/QuotationForm/quotationResultSlice';
+import { setTotalProducts } from "redux/features/QuotationForm/quotationResultSlice";
 // JSON
 import { responseJSON } from "utils/responseJSON";
 
@@ -29,7 +30,7 @@ export default function SectionProducts() {
   const urlData = useSelector(selectQuotationResultURL);
   const id = urlData.data.event_id;
 
-  const { products: productos, attribute_groups } = jsonData.data;
+  const { products: productos, attribute_groups } = responseJSON; //jsonData.data;
 
   const [products, setProducts] = React.useState(
     Object.entries(productos).filter(
@@ -68,7 +69,7 @@ export default function SectionProducts() {
           <GridItem xs={12}>
             <GridContainer>
               {products.map((product) => (
-                <GridItem xs={8} sm={6} md={4} lg={3} key={product[0]}>
+                <GridItem xs={12} sm={6} md={4} lg={3} key={product[0]}>
                   <ProductDetailCard
                     data={product}
                     groups={attributeGroups}
@@ -78,17 +79,14 @@ export default function SectionProducts() {
               ))}
             </GridContainer>
           </GridItem>
-          <GridItem xs={12}>
-            <span>
-              *Cada cotización es provisional y no implica aceptación del
-              riesgo, todas las condiciones incluyendo precios, tasas de
-              financiación y coberturas están sujetas a cambios, revisión,
-              verificación y aceptación acorde las políticas y parámetros de las
-              aseguradoras e intermediario, pudiendo variar el momento de emitir
-              la póliza. Tiempo de vigencia de las cotizaciones es de 5 días
-              calendario.
-            </span>
-          </GridItem>
+          <Typography color="textSecondary" style={{ marginTop: "1rem" }}>
+            Cada cotización es provisional y no implica aceptación del riesgo,
+            todas las condiciones incluyendo precios, tasas de financiación y
+            coberturas están sujetas a cambios, revisión, verificación y
+            aceptación acorde las políticas y parámetros de las aseguradoras e
+            intermediario, pudiendo variar el momento de emitir la póliza.
+            Tiempo de vigencia de las cotizaciones es de 5 días calendario.
+          </Typography>
         </GridContainer>
       </div>
     </div>

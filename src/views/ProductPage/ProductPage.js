@@ -30,6 +30,7 @@ import {
 //utils
 import { capitalizeStr } from "utils/functions";
 import productStyle from "assets/jss/material-kit-pro-react/views/productStyle.js";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles(productStyle);
 
@@ -38,6 +39,7 @@ export default function ProductPage({ ...rest }) {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
+  const history = useHistory();
   const productData = useSelector(selectProductDetail);
   const attGroups = useSelector(selectAttributeGroups);
   const classes = useStyles();
@@ -46,7 +48,7 @@ export default function ProductPage({ ...rest }) {
     <div className={classes.productPage}>
       <Header
         color="transparent"
-        brand="agentemotor"
+        brand="Nombre Agencia"
         links={<HeaderLinks dropdownHoverColor="info" />}
         fixed
         changeColorOnScroll={{
@@ -65,8 +67,13 @@ export default function ProductPage({ ...rest }) {
             <GridContainer direction="row">
               <GridItem xs={12}>
                 <GridContainer>
-                  <GridItem container justify="center" md={2}>
-                    <img src={productData[1].thumb} />
+                  <GridItem
+                    container
+                    justify="center"
+                    alignItems="center"
+                    md={2}
+                  >
+                    <img src={productData[1].thumb} height="75%" />
                   </GridItem>
                   <GridItem xs={12} md={10}>
                     <h2 className={classes.title}>{productData[1].name}</h2>
@@ -76,10 +83,10 @@ export default function ProductPage({ ...rest }) {
                     <p>
                       <i>
                         O {productData[1].numeroCuotaFinanciacion} cuotas de{" "}
-                        {productData[1].valorCuotaFinanciacion}
+                        {productData[1].valorCuotaFinanciacion}.
                       </i>
                     </p>
-                    <Button color="info" size="sm">
+                    <Button color="info" size="sm" onClick={() => history.push("/compareTable")}>
                       Comparar
                     </Button>
                   </GridItem>
@@ -96,18 +103,20 @@ export default function ProductPage({ ...rest }) {
                           <b>{capitalizeStr(group[1].attribute[el].name)}: </b>
                           {el === "67" ? (
                             productData[1].attribute[el]
-                              .split(/<\/li><\/ul>|<\/li> <\/ul>/).filter((str) => (str.length > 0))
+                              .split(/<\/li><\/ul>|<\/li> <\/ul>/)
+                              .filter((str) => str.trim().length > 0)
                               .map((str, i) => (
                                 <p key={i} className={classes.description}>
-                                  - {capitalizeStr(str)}
+                                  - {str}
                                 </p>
                               ))
                           ) : (
                             <span className={classes.description}>
                               {productData[1].attribute[el] === "" ||
                               productData[1].attribute[el] === undefined
-                                ? "N/A"
-                                : capitalizeStr(productData[1].attribute[el])}
+                                ? "N/A."
+                                : capitalizeStr(productData[1].attribute[el]) +
+                                  "."}
                             </span>
                           )}
                         </h6>
@@ -117,25 +126,14 @@ export default function ProductPage({ ...rest }) {
                 ))}
               </GridItem>
             </GridContainer>
-          </div>
-          <div className={classNames(classes.features, classes.textCenter)}>
-            <GridContainer>
-              <GridItem xs={12}>
-                <Card className={classes.root}>
-                  <CardBody>
-                    <Typography color="textSecondary">
-                      Cada cotización es provisional y no implica aceptación del
-                      riesgo, todas las condiciones incluyendo precios, tasas de
-                      financiación y coberturas están sujetas a cambios,
-                      revisión, verificación y aceptación acorde las políticas y
-                      parámetros de las aseguradoras e intermediario, pudiendo
-                      variar el momento de emitir la póliza. Tiempo de vigencia
-                      de las cotizaciones es de 5 días calendario.
-                    </Typography>
-                  </CardBody>
-                </Card>
-              </GridItem>
-            </GridContainer>
+            <Typography color="textSecondary" style={{marginTop: "1rem"}}>
+              Cada cotización es provisional y no implica aceptación del riesgo,
+              todas las condiciones incluyendo precios, tasas de financiación y
+              coberturas están sujetas a cambios, revisión, verificación y
+              aceptación acorde las políticas y parámetros de las aseguradoras e
+              intermediario, pudiendo variar el momento de emitir la póliza.
+              Tiempo de vigencia de las cotizaciones es de 5 días calendario.
+            </Typography>
           </div>
         </div>
       </div>

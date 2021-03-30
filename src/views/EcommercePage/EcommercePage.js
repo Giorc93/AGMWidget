@@ -52,7 +52,7 @@ export default function EcommercePage({ ...rest }) {
     <div>
       <Header
         color="transparent"
-        brand="agentemotor"
+        brand="Nombre Agencia"
         links={<HeaderLinks dropdownHoverColor="info" />}
         fixed
         changeColorOnScroll={{

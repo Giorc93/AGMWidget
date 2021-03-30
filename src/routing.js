@@ -4,7 +4,8 @@ import { Route, Switch } from "react-router-dom";
 
 import QuotationPage from "./views/QuotationPage/QuotationPage";
 import ResultsPage from "./views/EcommercePage/EcommercePage";
-import ProductDetailPage from './views/ProductPage/ProductPage'
+import ProductPage from './views/ProductPage/ProductPage';
+import ComparePage from './views/ComparePage/ComparePage'
 
 const Routing = () => {
   return (
@@ -12,7 +13,8 @@ const Routing = () => {
       <Route exact path="/" component={QuotationPage} />
       <Route exact path="/home" component={QuotationPage} />
       <Route exact path="/results" component={ResultsPage} />
-      <Route exact path="/productDetail" component={ProductDetailPage} />
+      <Route exact path="/productDetail" component={ProductPage} />
+      <Route exact path="/compareTable" component={ComparePage} />
     </Switch>
   );
 };

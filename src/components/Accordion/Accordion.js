@@ -68,7 +68,8 @@ export default function Accordion(props) {
                 expandIcon: classes.expansionPanelSummaryExpandIcon
               }}
             >
-              <h4 className={classes.title}>{prop.title}</h4> 
+              <h4 className={classes.title}>{prop.title}</h4>
+              <h5>{prop.subTitle}</h5>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.expansionPanelDetails}>
               {prop.content}
