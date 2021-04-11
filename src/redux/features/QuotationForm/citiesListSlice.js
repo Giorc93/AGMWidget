@@ -1,3 +1,5 @@
+//consulta de listado de ciudades
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getCitiesList = createAsyncThunk(

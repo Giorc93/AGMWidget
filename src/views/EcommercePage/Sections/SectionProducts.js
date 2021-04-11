@@ -2,12 +2,13 @@ import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-// @material-ui icons
+import CompareIcon from '@material-ui/icons/Compare';
 // core components
 import ProductDetailCard from "components/ProductDetailCard/ProductDetailCard";
+import CompareModal from "components/CompareModal/CompareModal";
 import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
+import GridItem from "components/Grid/GridItem.js";
 // redux
 import {
   selectQuotationResultJSON,
@@ -16,7 +17,7 @@ import {
 // socket
 import { socket } from "utils/global";
 import { useSelector, useDispatch } from "react-redux";
-import { setTotalProducts } from "redux/features/QuotationForm/quotationResultSlice";
+import { setTotalProducts, setAttributeGroups } from "redux/features/QuotationForm/quotationResultSlice";
 // JSON
 import { responseJSON } from "utils/responseJSON";
 
@@ -38,6 +39,8 @@ export default function SectionProducts() {
     )
   );
 
+  const [compareModal, setCompareModal] = React.useState(false);
+
   const attributeGroups = Object.entries(attribute_groups);
   const attGroupArr = [];
   attributeGroups.map((el) => attGroupArr.push(el[1]));
@@ -52,6 +55,7 @@ export default function SectionProducts() {
 
   React.useEffect(() => {
     socket.emit("create-room", "room-" + id);
+    dispatch(setAttributeGroups(attributeGroups));
     return function cleanup() {};
   }, []);
 
@@ -79,7 +83,7 @@ export default function SectionProducts() {
               ))}
             </GridContainer>
           </GridItem>
-          <Typography color="textSecondary" style={{ marginTop: "1rem" }}>
+          <Typography color="textSecondary" className={classes.legalNote}>
             Cada cotización es provisional y no implica aceptación del riesgo,
             todas las condiciones incluyendo precios, tasas de financiación y
             coberturas están sujetas a cambios, revisión, verificación y
@@ -89,6 +93,11 @@ export default function SectionProducts() {
           </Typography>
         </GridContainer>
       </div>
+      <Button round className={classes.compareButton} onClick={() => setCompareModal(true)}><CompareIcon style={{ color: "#FFFFFF" }} />Comparar</Button>
+      <CompareModal
+        showModal={compareModal}
+        handleModal={setCompareModal}
+      />
     </div>
   );
 }

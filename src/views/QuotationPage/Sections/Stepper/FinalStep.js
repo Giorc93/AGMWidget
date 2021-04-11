@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 import InfoArea from "components/InfoArea/InfoArea.js";
 import { Search } from "@material-ui/icons";
-
 // redux
 import { selectQuotationResultJSON } from "redux/features/QuotationForm/quotationResultSlice";
 import { selectQuotationResultURL } from "redux/features/QuotationForm/quotationResultSlice";
@@ -16,7 +15,9 @@ import { CastPersonData } from "utils/functions";
 const FinalStep = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  //recupera la información de la cotización recolectada en los formularios
   const quotationData = useSelector(selectQuotationData);
+  //
   const quotationResultURL = useSelector(selectQuotationResultURL);
   const quotationResultJSON = useSelector(selectQuotationResultJSON);
 
@@ -32,7 +33,7 @@ const FinalStep = () => {
   React.useEffect(() => {
     quotationResultJSON.status === "success" && history.push("/results");
   }, [quotationResultJSON]);
-
+//pantalla de espera de respuesta de la API una vez se ha ejecutado la consulta de la cotización
   return (
     <React.Fragment>
       <InfoArea

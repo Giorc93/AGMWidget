@@ -15,7 +15,7 @@ import tooltipsStyle from "assets/jss/material-kit-pro-react/tooltipsStyle.js";
 import imagesStyles from "assets/jss/material-kit-pro-react/imagesStyles.js";
 import customSelectStyle from "assets/jss/material-kit-pro-react/customSelectStyle.js";
 
-const productStyle = {
+const productStyle = (theme) => ({
   infoColor: infoColor[1],
   mlAuto,
   main,
@@ -26,6 +26,12 @@ const productStyle = {
     ...container,
     zIndex: 2,
   },
+  compContainer: {
+    ...container,
+    zIndex: 2,
+    paddingLeft: "0",
+    paddingRight: "0",
+  },
   mainRaised: {
     ...mainRaised,
   },
@@ -35,8 +41,9 @@ const productStyle = {
   },
   title: {
     ...title,
-    marginTop: 0,
-    marginBottom: 0,
+    marginBottom: "0",
+    marginTop: "0",
+    margin: "0px 1rem 0px 1rem",
   },
   subTitle: {
     ...title,
@@ -54,7 +61,9 @@ const productStyle = {
     background: grayColor[14],
   },
   mainPrice: {
-    margin: "0",
+    marginBottom: "0",
+    marginTop: "0",
+    margin: "0px 1rem 0px 1rem",
   },
   textCenter: {
     textAlign: "center!important",
@@ -66,7 +75,8 @@ const productStyle = {
     backgroundColor: grayColor[2],
     "& $mainRaised": {
       margin: "-40vh 0 0",
-      padding: "40px",
+      paddingTop: "30px",
+      paddingBottom: "10px",
     },
     "& .image-gallery-slide img": {
       borderRadius: "3px",
@@ -212,7 +222,34 @@ const productStyle = {
   description: {
     color: "inherited",
     fontSize: "16px",
-  }
-};
+  },
+  legalNote: {
+    fontSize: "0.8rem",
+    margin: "0.5rem",
+    marginTop: "1rem",
+  },
+  compareButton: {
+    position: "fixed",
+    bottom: "10px",
+    right: "10px",
+    backgroundColor: "#00acc1",
+    zIndex: "999",
+  },
+  table: {
+    borderRadius: "0",
+    marginTop: "1rem",
+    maxHeight: "650px",
+  },
+  styledTableCell: {
+    backgroundColor: infoColor[1],
+    color: theme.palette.common.white,
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "50vw",
+    },
+    [theme.breakpoints.up("sm")]: {
+      minWidth: "25vw",
+    },
+  },
+});
 
 export default productStyle;

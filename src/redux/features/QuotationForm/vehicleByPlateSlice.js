@@ -1,3 +1,5 @@
+//consulta de vehiculos por número de placa
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getVehicleByPlate = createAsyncThunk(

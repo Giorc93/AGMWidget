@@ -7,6 +7,8 @@ import {
   mlAuto,
   mrAuto,
   grayColor,
+  blackColor,
+  hexToRgb,
 } from "assets/jss/material-kit-pro-react.js";
 
 import customCheckboxRadioSwitch from "assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle.js";
@@ -104,7 +106,40 @@ const styles = {
   price: {
     color: infoColor[1],
     margin: 0,
-  }
+  },
+  compareButton: {
+    position: "fixed",
+    bottom: "10px",
+    right: "10px",
+    backgroundColor: "#00acc1",
+  },
+  checkRoot: {
+    padding: "14px",
+    "&:hover": {
+      backgroundColor:
+        "rgba(" + hexToRgb(infoColor[0]) + ", 0.14) !important",
+    },
+  },
+  checked: {
+    color: infoColor[0] + "!important",
+  },
+  checkedIcon: {
+    width: "20px",
+    height: "20px",
+    border: "1px solid rgba(" + hexToRgb(blackColor) + ", 0.84)",
+    borderRadius: "3px",
+  },
+  uncheckedIcon: {
+    width: "0px",
+    height: "0px",
+    padding: "9px",
+    border: "1px solid rgba(" + hexToRgb(blackColor) + ", .54)",
+    borderRadius: "3px",
+  },
+  legalNote: {
+    fontSize: "0.8rem",
+    margin: "0.5rem",
+  },
 };
 
 export default styles;

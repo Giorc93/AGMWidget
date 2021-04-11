@@ -1,23 +1,24 @@
 import React from "react";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+//core components
+import CustomInput from "components/CustomForm/CustomInput";
+import CustomButton from "components/CustomButtons/Button";
+import GridContainer from "components/Grid/GridContainer";
+import CustomForm from "components/CustomForm/CustomForm";
+import GridItem from "components/Grid/GridItem";
+//redux
 import { getVehicleByPlate } from "redux/features/QuotationForm/vehicleByPlateSlice";
 import {
   setSearchType,
   setPlateNumber,
   selectPlateNumber,
 } from "redux/features/QuotationForm/quotationDataSlice";
+//utils
 import { plateNumber } from "utils/validators";
-
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-
-import CustomForm from "components/CustomForm/CustomForm";
-import CustomInput from "components/CustomForm/CustomInput";
-import CustomButton from "components/CustomButtons/Button";
-import GridContainer from "components/Grid/GridContainer";
-import GridItem from "components/Grid/GridItem";
 
 const inputProps = {
   style: {
@@ -39,9 +40,10 @@ const PlateForm = (props) => {
   const plateNumberData = useSelector(selectPlateNumber);
 
   const onSubmit = (data) => {
+    //getVehicleByPlate obtiene la información del vehiculo de acuerdo a la placa ingresada
     dispatch(getVehicleByPlate(data.plateNumber));
+    //setPlateNumber guarda en el estado (redux) el número de placa
     dispatch(setPlateNumber(data.plateNumber));
-    dispatch(setSearchType("plate"));
     props.handleNext();
   };
 

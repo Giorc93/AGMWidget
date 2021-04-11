@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 //icons
+import Check from "@material-ui/icons/Check";
 // core components
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
@@ -18,6 +19,9 @@ import { validField } from "utils/functions";
 import {
   setProductDetail,
   setAttributeGroups,
+  setCompareProducts,
+  selectCompareProducts,
+  rmCompareProducts,
 } from "redux/features/QuotationForm/quotationResultSlice";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceSections/productsStyle.js";
@@ -31,7 +35,6 @@ const style = {
   insThumb: {
     display: "block",
     margin: "0 auto",
-    width: "120px",
     height: "80px",
     borderRadius: "0.5rem",
     boxShadow:
@@ -44,12 +47,19 @@ const useStyles = makeStyles(style);
 export default function ProductDetailCard(props) {
   const classes = useStyles();
   const product = props.data;
-  const productsArr = props.comp;
+  const compareProducts = useSelector(selectCompareProducts);
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const handleCompareChange = (value) => {
+    if (compareProducts.includes(value)) {
+      dispatch(rmCompareProducts(value));
+    } else {
+      dispatch(setCompareProducts([...compareProducts, value]));
+    }
+  };
+
   const handleDetails = (data) => {
-    dispatch(setAttributeGroups(props.groups));
     dispatch(setProductDetail(data));
     history.push("/productDetail");
   };
@@ -209,6 +219,25 @@ export default function ProductDetailCard(props) {
             >
               Ver más
             </Button>
+          </GridItem>
+          <GridItem container justify="center">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  tabIndex={-1}
+                  onClick={() => handleCompareChange(product[0])}
+                  checkedIcon={<Check className={classes.checkedIcon} />}
+                  icon={<Check className={classes.uncheckedIcon} />}
+                  checked={compareProducts.includes(product[0]) ? true : false}
+                  classes={{
+                    checked: classes.checked,
+                    root: classes.checkRoot,
+                  }}
+                />
+              }
+              classes={{ label: classes.label }}
+              label="Añadir a Comparativo"
+            />
           </GridItem>
         </GridContainer>
       </CardBody>

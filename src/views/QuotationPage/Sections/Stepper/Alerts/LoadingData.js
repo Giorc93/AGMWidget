@@ -5,7 +5,7 @@ import Loop from "@material-ui/icons/Loop";
 
 // core components
 import InfoArea from "components/InfoArea/InfoArea.js";
-
+//componente de alerta para indicar el estado de espera de la respuesta de la API
 export default function LoadingData() {
   return (
     <InfoArea

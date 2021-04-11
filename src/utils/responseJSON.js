@@ -1,3 +1,5 @@
+//respuesta 'default' para testeo, habilitar o deshabilitar carga de datos desde éste archivo en views/EcommercePage/Sections/SectionProducts.js
+
 export const responseJSON = {
   products: {
     "58448133": {

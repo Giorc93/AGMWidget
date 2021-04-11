@@ -1,3 +1,7 @@
+//funciones generales
+
+//casteo de la información recolectada en el formulario a la estructura definida en la API
+//para la generación de la cotización
 export const CastPersonData = (data) => {
   const { personData, riskData, placeData, vehicleData } = data;
   const quotationData = {
@@ -95,6 +99,7 @@ export const CastPersonData = (data) => {
   return quotationData;
 };
 
+//formatear valores a formato de divisa (Peso colombiano)
 export const formatValue = (value) => {
   const formatedValue = new Intl.NumberFormat("es-CO", {
     style: "currency",
@@ -103,16 +108,19 @@ export const formatValue = (value) => {
   return formatedValue;
 };
 
+//validación de campo. Para valores vacíos o === a no cubre retornará false
 export const validField = (value) => {
   return value.trim() === "" || value.toLowerCase() === "no_cubre" ? false : true;
 };
 
+//formatear fechas dd-mm-aaaa
 export const formatDate = (value) => {
   return new Date(value)
   .toISOString()
   .split("T")[0];
 }
 
+//transformar texto a 'capitalize'
 export const capitalizeStr = (str) => {
   str = str.toLowerCase();
   str = str.charAt(0).toUpperCase() + str.slice(1);

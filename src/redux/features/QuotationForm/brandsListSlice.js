@@ -1,3 +1,5 @@
+//consulta de listado de marcas de vehiculos
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getBrandsList = createAsyncThunk(

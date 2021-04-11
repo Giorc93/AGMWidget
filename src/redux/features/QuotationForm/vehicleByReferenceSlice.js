@@ -1,3 +1,5 @@
+//consulta de vehiculos por referencia (Marca, modelo y referencia)
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getVehicleByReference = createAsyncThunk(
@@ -7,6 +9,7 @@ export const getVehicleByReference = createAsyncThunk(
     headers.append("Content-Type", "application/json");
     headers.append(
       "Cookie",
+      //toquen 'quemado' para testeo
       "XSRF-TOKEN=eyJpdiI6IndXaVZ2aFlIbk5KREJvek1iUHl0R2c9PSIsInZhbHVlIjoidnJwSEpXZGRQdEMzRkZwNG4xZ1wvQ0k5VEtCeWE5UnozakRTR3FEZXp4dmZtYVNcLzZPOHN4ZEN0MGsrYUt5dXNQIiwibWFjIjoiMjUwNDBkZTBjMGZhMmNkZWRhNjRiNzMwNzUwYmNiZTRlMjBiMTdlM2E1MWQ1N2Q1ZTEyNmU2YmRhMzYwOTcyYyJ9; agentemotor_session=eyJpdiI6ImU2QjJuTzNkOGJlN2FjMFdGakxzOHc9PSIsInZhbHVlIjoiK3VMS3V6SWhHMWZudDRoUW1COWNVMXR2eFBVY0pvY1Z5Y1UzdW03XC9oRmJRT2d0UFBDM1JzSWlVUVc2dkxYOW8iLCJtYWMiOiIyZTI5YjM1Y2I1YmI3NTA1MjM5OGY5NjM5NjY0YjdjODgyYjMwMGRiYjkzZjE4ODkyZDliMjk3MmFiMmYwYzhhIn0%3D"
     );
 

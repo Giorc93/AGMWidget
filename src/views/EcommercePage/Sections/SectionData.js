@@ -7,16 +7,14 @@ import {
   selectVehicleData,
 } from "redux/features/QuotationForm/quotationDataSlice";
 // core components
-import Accordion from "components/Accordion/Accordion.js";
 import GridContainer from "components/Grid/GridContainer.js";
+import Accordion from "components/Accordion/Accordion.js";
 import GridItem from "components/Grid/GridItem.js";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceSections/latestOffersStyle.js";
 import { formatDate } from "utils/functions";
-import { Paper } from "@material-ui/core";
-
 const useStyles = makeStyles(styles);
 
 export default function SectionData() {
@@ -45,9 +43,9 @@ export default function SectionData() {
           activeColor="info"
           collapses={[
             {
-              //title: `Información Riesgo`,
-              title: `Seguro para ${name} ${surname}. ${idType}: ${idNumber}. Género: ${gender}. Fecha de nacimiento: ${formatDate(new Date())}`,
-              //subtTitle: `${type} ${brand} ${codification.line1} ${codification.line2} ${codification.line3} . Modelo: ${model} Código Fasecolda: ${code}`,
+              title: `Seguro para ${name} ${surname}. ${idType}: ${idNumber}. Género: ${gender}. Fecha de nacimiento: ${formatDate(
+                new Date()
+              )}`,
               content: (
                 <GridContainer>
                   <GridItem xs={12} sm={6} md={3}>
@@ -83,15 +81,8 @@ export default function SectionData() {
                 </GridContainer>
               ),
             },
-          ]}
-        />
-      </div>
-    </div>
-  );
-}
-/*
- {
-              title: "Información del Vehículo",
+            {
+              title: "Información del riesgo",
               content: (
                 <GridContainer>
                   <GridItem xs={12} sm={6} md={3}>
@@ -103,7 +94,7 @@ export default function SectionData() {
                   <GridItem xs={12} sm={6} md={3}>
                     <span>
                       <b>Referencia: </b>
-                      
+                      {}
                     </span>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={3}>
@@ -149,4 +140,9 @@ export default function SectionData() {
                 </GridContainer>
               ),
             },
- */
+          ]}
+        />
+      </div>
+    </div>
+  );
+}

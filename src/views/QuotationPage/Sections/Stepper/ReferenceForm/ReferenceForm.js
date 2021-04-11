@@ -26,10 +26,14 @@ import GridItem from "components/Grid/GridItem";
 const date = new Date();
 
 const ReferenceForm = (props) => {
+  /*estado inicial de los datos del vehiculo 'undefined' para condicionar la ejecución de la consulta de referencias
+    sólo una vez modelo y marca hayan sido seleccionados
+  */
   const [vehicleData, setVehicleData] = useState({
     brand: undefined,
     model: undefined,
   });
+
   const { register, handleSubmit, errors } = useForm({
     mode: "onBlur",
     resolver: yupResolver(
@@ -41,37 +45,49 @@ const ReferenceForm = (props) => {
     ),
   });
   const dispatch = useDispatch();
+  //recupera la lista de marcas a través de la API. 
   const brandsList = useSelector(selectBrandsListData);
+  //creación de listado de modelos desde el año actual hasta 25 años atrás.
   const modelArray = [...Array(25).keys()].map((index) =>
     (date.getFullYear() - index).toString()
   );
+  //recupera el listado de referencias de la API
   const referencesList = useSelector(selectReferencesListData);
-
+  /*condiciona la ejecución de la consulta comprobando los estados de marca y modelo con respecto a los
+    estados iniciales 'undefined' y ejecuta la consulta a la API del listado de referencias de acuerdo a
+    marca y modelo seleccionados
+  */
   const handleDispatch = () => {
     vehicleData.brand !== undefined &&
       vehicleData.model !== undefined &&
       dispatch(getReferencesList(vehicleData));
   };
-
+  /*verifica que la acción en el componente Autocomplete 'brand' corresponda a una selección de opción para modificar
+    el estado, o en caso de no serlo, actualiza el estado a 'undefined' (estado inicial)
+  */
   const handleBrandChange = (e, v, r) => {
     r === "select-option" && setVehicleData({ ...vehicleData, brand: v });
     r === "clear" && setVehicleData({ ...vehicleData, brand: undefined });
   };
-
+  /*verifica que la acción en el componente Autocomplete 'model' corresponda a una selección de opción para modificar
+    el estado, o en caso de no serlo, actualiza el estado a 'undefined' (estado inicial)
+  */
   const handleModelChange = (e, v, r) => {
     r === "select-option" && setVehicleData({ ...vehicleData, model: v });
     r === "clear" && setVehicleData({ ...vehicleData, model: undefined });
   };
-
+  /*una vez se tiene la información (marca, modelo, referencia) se realiza la consulta a la API para obtener el listado
+    de vehiculos que cumplan con éstas características
+  */
   const onSubmit = (data) => {
     dispatch(getVehicleByReference(data));
     props.handleNext();
   };
-
+  //realiza la consulta a la API para recuperar el listado de marcas al cargar el componente
   useEffect(() => {
     dispatch(getBrandsList());
   }, [])
-
+  //realiza la ejecución de la función 'handleDispatch' cada vez que detecta cambios en el estado de 'vehicleDetail'
   useEffect(() => {
     handleDispatch();
   }, [vehicleData]);

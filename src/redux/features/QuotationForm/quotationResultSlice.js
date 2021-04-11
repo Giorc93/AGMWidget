@@ -1,3 +1,5 @@
+//generación de cotización
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getQuotation = createAsyncThunk(
@@ -19,8 +21,6 @@ export const getQuotation = createAsyncThunk(
       redirect: "follow",
     };
 
-    console.log(quoteData);
-
     return await fetch(
       "https://pacific-dusk-24048.herokuapp.com/insurances/process/create",
       requestOptions
@@ -28,6 +28,7 @@ export const getQuotation = createAsyncThunk(
   }
 );
 
+//carga del objeto JSON devuelto por la API una vez se generan las URL
 export const getJSON = createAsyncThunk(
   "vehicle/getJSONStatus",
   async (jsonUrl) => {
@@ -57,6 +58,7 @@ const initialState = {
   productDetail: {},
   attributeGroups: [],
   totalProducts: [],
+  compareProducts: [],
 };
 
 const quotationResultSlice = createSlice({
@@ -72,6 +74,12 @@ const quotationResultSlice = createSlice({
     },
     setTotalProducts: (state, action) => {
       state.totalProducts = action.payload;
+    },
+    setCompareProducts: (state, action) => {
+      state.compareProducts = action.payload;
+    },
+    rmCompareProducts: (state, action) => {
+      state.compareProducts = state.compareProducts.filter((val) => val !== action.payload);
     }
   },
   extraReducers: {
@@ -79,7 +87,6 @@ const quotationResultSlice = createSlice({
       state.urlData.status = "loading";
     },
     [getQuotation.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.urlData.data = action.payload;
       state.urlData.status = "success";
     },
@@ -99,7 +106,7 @@ const quotationResultSlice = createSlice({
   },
 });
 
-export const { resetQuotationResultState, setProductDetail, setAttributeGroups, setTotalProducts} = quotationResultSlice.actions;
+export const { resetQuotationResultState, setProductDetail, setAttributeGroups, setTotalProducts, setCompareProducts, rmCompareProducts} = quotationResultSlice.actions;
 
 export const selectQuotationResultURL = (state) =>
   state.quotationResult.urlData;
@@ -111,5 +118,7 @@ export const selectAttributeGroups = (state) =>
   state.quotationResult.attributeGroups;
 export const selectTotalProducts = (state) =>
   state.quotationResult.totalProducts;
+export const selectCompareProducts = (state) => 
+  state.quotationResult.compareProducts;
 
 export default quotationResultSlice.reducer;

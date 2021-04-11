@@ -3,25 +3,19 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // core components
-import Header from "components/Header/Header.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/CustomParallax.js";
-import Footer from "components/Footer/Footer.js";
+import GridItem from "components/Grid/GridItem.js";
 // sections for this page
-import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionProducts from "views/EcommercePage/Sections/SectionProducts.js";
 import SectionData from "views/EcommercePage/Sections/SectionData.js";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 // redux
 import { selectTotalProducts } from "redux/features/QuotationForm/quotationResultSlice";
 import { useSelector } from "react-redux";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceStyle.js";
-import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -29,8 +23,6 @@ export default function EcommercePage({ ...rest }) {
   const products = useSelector(selectTotalProducts);
 
   const [manufacturers, setManufacturers] = React.useState([]);
-
-  console.log(products);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);

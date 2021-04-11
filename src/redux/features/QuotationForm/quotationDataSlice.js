@@ -1,3 +1,5 @@
+//carga de información recolectada en el formulario al estado global
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

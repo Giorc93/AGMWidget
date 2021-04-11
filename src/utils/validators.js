@@ -68,7 +68,7 @@ export const email = yup
 
 export const birthdate = yup
   .string()
-  .typeError("Ingresa tu fecha de nacimiento");
+  .required("Ingresa tu fecha de nacimiento");
 
 export const vehiclePrice = yup.string().when("inAgency", {
   is: "true",

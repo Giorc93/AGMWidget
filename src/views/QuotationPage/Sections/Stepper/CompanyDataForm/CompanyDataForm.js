@@ -1,10 +1,18 @@
 import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
+//core components
+import CustomDatePicker from "components/CustomForm/CustomDatePicker";
+import CustomRadioBtn from "components/CustomForm/CustomRadioBtn";
+import CustomSelect from "components/CustomForm/CustomSelect";
+import CustomInput from "components/CustomForm/CustomInput";
+import CustomButton from "components/CustomButtons/Button";
+import GridContainer from "components/Grid/GridContainer";
+import CustomForm from "components/CustomForm/CustomForm";
+import GridItem from "components/Grid/GridItem";
+//utils
 import {
   idType,
   idNumber,
@@ -17,30 +25,23 @@ import {
   legRepIdNumber,
 } from "utils/validators";
 import {
-  setCompanyData,
-  selectDocumentData,
-} from "redux/features/QuotationForm/quotationDataSlice";
-import {
   idTypeArr,
   genderArr,
   actualSituation,
   reqDate,
 } from "utils/inputArrays";
-
-import CustomDatePicker from "components/CustomForm/CustomDatePicker";
-import CustomRadioBtn from "components/CustomForm/CustomRadioBtn";
-import CustomSelect from "components/CustomForm/CustomSelect";
-import CustomInput from "components/CustomForm/CustomInput";
-import CustomButton from "components/CustomButtons/Button";
-import GridContainer from "components/Grid/GridContainer";
-import GridItem from "components/Grid/GridItem";
-import CustomForm from "components/CustomForm/CustomForm";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCompanyData,
+  selectDocumentData,
+} from "redux/features/QuotationForm/quotationDataSlice";
 
 const CompanyDataForm = (props) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
-  },[]);
+  }, []);
   const dispatch = useDispatch();
 
   const { register, handleSubmit, watch, errors, control } = useForm({
@@ -62,6 +63,7 @@ const CompanyDataForm = (props) => {
   });
 
   const documentData = useSelector(selectDocumentData);
+  //watch condiciona el renderizado del campo 'contactName' teniendo en cuenta el valor del campo 'contactInfo'
   const watchContact = watch("contactInfo");
 
   const onSubmit = (data) => {

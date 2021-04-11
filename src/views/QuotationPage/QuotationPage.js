@@ -12,10 +12,12 @@ import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/CustomParallax.js";
 // sections for this page
 import SectionForm from "./Sections/SectionForm";
-
+//estilos
 import quotationStyle from "assets/jss/material-kit-pro-react/views/quotationStyle.js";
 
 const useStyles = makeStyles(quotationStyle);
+
+//landing/home de la app. 
 
 export default function AboutUsPage() {
   React.useEffect(() => {
@@ -48,6 +50,7 @@ export default function AboutUsPage() {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
+          {/*carga la sección del formulario*/}
           <SectionForm />
         </div>
       </div>

@@ -1,3 +1,6 @@
+//arrays de opciones establecidos por las estructuras indicadas en la API. Se generan objetos con 
+//claves 'value', 'label' para estandarizar el paso de parámetros a los componentes de los formularios (select)
+
 //INSURABLE OBJECT INFO
 
 export const insurableObjectType = [

@@ -60,6 +60,7 @@ const PersonDataForm = (props) => {
   });
 
   const documentData = useSelector(selectDocumentData);
+  //watch condiciona el renderizado del campo 'contactName' teniendo en cuenta el valor del campo 'contactInfo'
   const watchContact = watch("contactInfo");
 
   const onSubmit = (data) => {
@@ -130,6 +131,8 @@ const PersonDataForm = (props) => {
           <CustomDatePicker
             name="birthdate"
             label="Fecha de nacimiento"
+            error={!!errors.birthdate}
+            helperText={errors?.birthdate?.message}
             control={control}
           />
         </GridItem>
