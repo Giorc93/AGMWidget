@@ -20,7 +20,7 @@ import React from "react";
 import store from "redux/store";
 import Routing from "./routing";
 import ReactDOM from "react-dom";
-import { Router } from "react-router";
+import { MemoryRouter } from "react-router";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import "assets/scss/material-kit-pro-react.scss?v=1.9.0";
@@ -31,9 +31,9 @@ var idToken = root.getAttribute("token");
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hist}>
+    <MemoryRouter history={hist}>
       <Routing token={idToken}/>
-    </Router>
+    </MemoryRouter>
   </Provider>,
   document.getElementById("AGMroot")
 );

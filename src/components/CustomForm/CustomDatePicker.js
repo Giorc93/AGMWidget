@@ -26,9 +26,9 @@ function CustomDatePicker(props) {
               fullWidth
               cancelLabel="Cancelar"
               okLabel="Confirmar"
-              emptyLabel="dd/mm/aaa"
+              emptyLabel="dd/mm/aaaa"
               minDate={moment().subtract(85, "years")}
-              minDateMessage="Edad mínima 85 años"
+              minDateMessage="Edad máxima 85 años"
               maxDate={moment().subtract(18, "years")}
               maxDateMessage="Edad mínima 18 años"
               invalidDateMessage="Formato de fecha inválido"
