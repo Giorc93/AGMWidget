@@ -30,6 +30,7 @@ import {
 import {
   setPlaceData,
   setRiskData,
+  selectSearchType,
 } from "redux/features/QuotationForm/quotationDataSlice";
 import { plateTypeArr, vehicleUseTypeArr } from "utils/inputArrays";
 import {
@@ -53,15 +54,56 @@ const useStyles = makeStyles(style);
 export default function VehicleRiskModal(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const searchType = useSelector(selectSearchType);
+  let schema =
+    searchType === "reference"
+      ? { vehiclePrice, accesoriesPrice, inAgency }
+      : { vehiclePrice, accesoriesPrice, inAgency, placeData };
   const vehicleData = props.vehicleData;
   const vehicleRisk = vehicleData.vehicle_risk;
+  var vehicleUseOptions;
+  switch (vehicleData.type) {
+    case "BUS":
+    case "BUSETA":
+    case "MICROBUS":
+      vehicleUseOptions = vehicleUseTypeArr.groupBus;
+      break;
+    case "CAMION":
+    case "FURGON":
+    case "VOLQUETA":
+    case "REMOLCADOR":
+    case "CARROTANQUE":
+      vehicleUseOptions = vehicleUseTypeArr.groupTruck;
+      break;
+    case "CAMIONETA PASAJ.":
+      vehicleUseOptions = vehicleUseTypeArr.groupPassTruck;
+      break;
+    case "AUTOMOVIL":
+    case "CAMPERO":
+    case "PICKUP SENCILLA":
+    case "PICKUP DOBLE CAB":
+      vehicleUseOptions = vehicleUseTypeArr.groupCar;
+      break;
+    case "MOTOCARRO":
+    case "MOTOCICLETA":
+    case "CUATRIMOTO":
+      vehicleUseOptions = vehicleUseTypeArr.groupBikes;
+      break;
+    case "CAMIONETA REPAR":
+    case "FURGONETA":
+      vehicleUseOptions = vehicleUseTypeArr.groupRep;
+      break;
+    case "REMOLQUE":
+      vehicleUseOptions = vehicleUseTypeArr.groupTow;
+      break;
+    default:
+      vehicleUseOptions = vehicleUseTypeArr.Car;
+  }
   const citiesList = useSelector(selectCitiesListData);
   const [placeDataState, setPlaceDataState] = useState(undefined);
   const { register, handleSubmit, control, watch, errors } = useForm({
     mode: "onBlur",
-    resolver: yupResolver(
-      yup.object().shape({ vehiclePrice, accesoriesPrice, inAgency, placeData })
-    ),
+    resolver: yupResolver(yup.object().shape(schema)),
     defaultValues: { vehiclePrice: vehicleRisk.reference_price },
   });
   const watchInAgency = watch("inAgency", "false");
@@ -78,6 +120,7 @@ export default function VehicleRiskModal(props) {
     r === "select-option" && setPlaceDataState(v);
     r === "clear" && setPlaceDataState(undefined);
   };
+
   useEffect(() => {
     handleDispatch();
   }, [placeDataState]);
@@ -118,16 +161,14 @@ export default function VehicleRiskModal(props) {
           id="classic-modal-slide-description"
           className={classes.modalBody}
         >
-          <p style={{ fontSize: "1rem" }}>
-            Necesitamos algo más de información
-          </p>
-
           <CustomForm onSubmit={handleSubmit(onSubmit)}>
-            <GridContainer justify="center" spacing={2}>
-              {(!vehicleData.plate || vehicleData.model >= moment().year()) && (
+            <GridContainer spacing={2}>
+              {(vehicleData.plate === "SDU998" ||
+                vehicleData.model >= moment().year()) && (
                 <GridItem xs={12}>
                   <CustomRadioBtn
-                    label="¿Vehiculo 0km en concesionario?"
+                    label="¿Vehículo 0km en concesionario?"
+                    color="primary"
                     defaultValue="false"
                     control={control}
                     name="inAgency"
@@ -143,7 +184,7 @@ export default function VehicleRiskModal(props) {
                   <CustomInput
                     type="text"
                     name="vehiclePrice"
-                    label="Precio del Vehiculo"
+                    label="Precio del Vehículo"
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -170,7 +211,7 @@ export default function VehicleRiskModal(props) {
                   <CustomInput
                     type="text"
                     name="vehiclePrice"
-                    label="Precio del Vehiculo"
+                    label="Precio del Vehículo"
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -197,11 +238,11 @@ export default function VehicleRiskModal(props) {
               </GridItem>
               <GridItem container xs={12} md={6}>
                 <CustomSelect
-                  options={vehicleUseTypeArr}
+                  options={vehicleUseOptions}
                   name="useType"
                   control={control}
                   ref={register}
-                  defaultValue={vehicleUseTypeArr[0].value}
+                  defaultValue={vehicleUseOptions[0].value}
                   label="Tipo de Uso"
                 />
               </GridItem>
@@ -215,14 +256,15 @@ export default function VehicleRiskModal(props) {
                   error={!!errors.accesoriesPrice}
                   helperText={
                     errors?.accesoriesPrice?.message ||
-                    "Ingresa 0 si el vehiculo no tiene accesorios"
+                    "Ingresa 0 si el vehículo no tiene accesorios"
                   }
                   defaultValue={"0"}
                 />
               </GridItem>
+
               <GridItem xs={12} md={6}>
                 <CustomAutocompleteObj
-                  ref={register}
+                  ref={register({ required: true })}
                   name="placeData"
                   label="Ciudad de Circulación"
                   loading={citiesList.status === "loading" ? true : false}
@@ -238,6 +280,7 @@ export default function VehicleRiskModal(props) {
                   helperText={errors?.placeData?.message}
                 />
               </GridItem>
+
               <GridItem
                 container
                 justify="center"

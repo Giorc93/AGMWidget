@@ -20,18 +20,20 @@ import React from "react";
 import store from "redux/store";
 import Routing from "./routing";
 import ReactDOM from "react-dom";
-import { Router } from "react-router";
+import { MemoryRouter } from "react-router";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import "assets/scss/material-kit-pro-react.scss?v=1.9.0";
 
 var hist = createBrowserHistory();
+var root = document.getElementById("AGMroot");
+var idToken = root.getAttribute("token");
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hist}>
-      <Routing />
-    </Router>
+    <MemoryRouter history={hist}>
+      <Routing token={idToken}/>
+    </MemoryRouter>
   </Provider>,
-  document.getElementById("rootAgmApp")
+  document.getElementById("AGMroot")
 );

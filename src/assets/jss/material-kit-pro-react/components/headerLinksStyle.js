@@ -35,6 +35,7 @@ const headerLinksStyle = theme => ({
     display: "block",
     width: "auto",
     margin: "0",
+    marginLeft: "15px",
     padding: "0",
     [theme.breakpoints.down("sm")]: {
       "& ul": {
@@ -199,7 +200,14 @@ const headerLinksStyle = theme => ({
     MsFlexAlign: "center",
     alignItems: "center"
   },
-  mlAuto
+  mlAuto,
+  infoList:{
+    margin: 0,
+    padding: 0,
+  },
+  infoListItem: {
+    listStyle: "none",
+  }
 });
 
 export default headerLinksStyle;

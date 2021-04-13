@@ -6,6 +6,7 @@ import Error from "@material-ui/icons/Error";
 // core components
 import InfoArea from "components/InfoArea/InfoArea.js";
 
+//componente de alerta en caso de que la consulta a la API retorne un error
 export default function ErrorOnLoad() {
   return (
     <InfoArea

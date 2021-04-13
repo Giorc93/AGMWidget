@@ -69,6 +69,7 @@ export default function Accordion(props) {
               }}
             >
               <h4 className={classes.title}>{prop.title}</h4>
+              <h5>{prop.subTitle}</h5>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.expansionPanelDetails}>
               {prop.content}
@@ -94,6 +95,7 @@ Accordion.propTypes = {
   collapses: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
+      subTitle: PropTypes.string,
       content: PropTypes.node
     })
   ).isRequired,

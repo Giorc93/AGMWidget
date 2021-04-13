@@ -1,10 +1,18 @@
 import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
+//core components
+import CustomDatePicker from "components/CustomForm/CustomDatePicker";
+import CustomRadioBtn from "components/CustomForm/CustomRadioBtn";
+import CustomSelect from "components/CustomForm/CustomSelect";
+import CustomInput from "components/CustomForm/CustomInput";
+import CustomButton from "components/CustomButtons/Button";
+import GridContainer from "components/Grid/GridContainer";
+import CustomForm from "components/CustomForm/CustomForm";
+import GridItem from "components/Grid/GridItem";
+//utils
 import {
   idType,
   idNumber,
@@ -17,26 +25,23 @@ import {
   legRepIdNumber,
 } from "utils/validators";
 import {
-  setCompanyData,
-  selectDocumentData,
-} from "redux/features/QuotationForm/quotationDataSlice";
-import {
   idTypeArr,
   genderArr,
   actualSituation,
   reqDate,
 } from "utils/inputArrays";
-
-import CustomDatePicker from "components/CustomForm/CustomDatePicker";
-import CustomRadioBtn from "components/CustomForm/CustomRadioBtn";
-import CustomSelect from "components/CustomForm/CustomSelect";
-import CustomInput from "components/CustomForm/CustomInput";
-import CustomButton from "components/CustomButtons/Button";
-import GridContainer from "components/Grid/GridContainer";
-import GridItem from "components/Grid/GridItem";
-import CustomForm from "components/CustomForm/CustomForm";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCompanyData,
+  selectDocumentData,
+} from "redux/features/QuotationForm/quotationDataSlice";
 
 const CompanyDataForm = (props) => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  }, []);
   const dispatch = useDispatch();
 
   const { register, handleSubmit, watch, errors, control } = useForm({
@@ -58,6 +63,7 @@ const CompanyDataForm = (props) => {
   });
 
   const documentData = useSelector(selectDocumentData);
+  //watch condiciona el renderizado del campo 'contactName' teniendo en cuenta el valor del campo 'contactInfo'
   const watchContact = watch("contactInfo");
 
   const onSubmit = (data) => {
@@ -69,10 +75,10 @@ const CompanyDataForm = (props) => {
     <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <GridContainer spacing={2}>
         <GridItem xs={12}>
-          <h3 style={{ textAlign: "center" }}>Información Persona Natural</h3>
+          <h3 style={{ textAlign: "center" }}>Información del propietario</h3>
         </GridItem>
         <GridItem xs={12}>
-          <h5>Información Persona Jurídica</h5>
+          <h5>Información persona jurídica</h5>
         </GridItem>
         <GridItem container xs={12} sm={4}>
           <CustomSelect
@@ -81,7 +87,7 @@ const CompanyDataForm = (props) => {
             control={control}
             ref={register}
             defaultValue={documentData.idType}
-            label="Tipo de Documento"
+            label="Tipo de documento"
             error={!!errors.idType}
             helperText={errors?.idType?.message}
           />
@@ -91,7 +97,7 @@ const CompanyDataForm = (props) => {
             name="idNumber"
             fullWidth
             ref={register}
-            label="Número de Documento"
+            label="Número de documento"
             error={!!errors.idNumber}
             helperText={errors?.idNumber?.message}
             defaultValue={documentData.idNumber}
@@ -102,13 +108,13 @@ const CompanyDataForm = (props) => {
             name="companyName"
             fullWidth
             ref={register}
-            label="Nombre de la Empresa"
+            label="Nombre de la empresa"
             error={!!errors.companyName}
             helperText={errors?.companyName?.message}
           />
         </GridItem>
         <GridItem xs={12}>
-          <h5>Información del Representante Legal</h5>
+          <h5>Información del representante legal</h5>
         </GridItem>
         <GridItem container xs={12} sm={4} justify="center">
           <CustomInput
@@ -133,6 +139,7 @@ const CompanyDataForm = (props) => {
         <GridItem container xs={12} sm={4} justify="center">
           <CustomRadioBtn
             label="Género"
+            color="primary"
             defaultValue="M"
             control={control}
             name="legRepGender"
@@ -146,7 +153,7 @@ const CompanyDataForm = (props) => {
             control={control}
             ref={register}
             defaultValue={"CC"}
-            label="Tipo de Documento"
+            label="Tipo de documento"
             error={!!errors.legRepIdType}
             helperText={errors?.legRepIdType?.message}
           />
@@ -156,7 +163,7 @@ const CompanyDataForm = (props) => {
             name="legRepIdNumber"
             fullWidth
             ref={register}
-            label="Número de Documento"
+            label="Número de documento"
             error={!!errors.legRepIdNumber}
             helperText={errors?.legRepIdNumber?.message}
           />
@@ -164,7 +171,7 @@ const CompanyDataForm = (props) => {
         <GridItem container xs={12} sm={4} justify="center">
           <CustomDatePicker
             name="legRepBirthdate"
-            label="Fecha de Nacimiento"
+            label="Fecha de nacimiento"
             control={control}
           />
         </GridItem>
@@ -176,7 +183,7 @@ const CompanyDataForm = (props) => {
             name="legRepPhoneNumber"
             fullWidth
             ref={register}
-            label="Número Telefónico"
+            label="Número telefónico"
             error={!!errors.legRepPhoneNumber}
             helperText={errors?.legRepPhoneNumber?.message}
           />
@@ -193,7 +200,8 @@ const CompanyDataForm = (props) => {
         </GridItem>
         <GridItem container xs={12} sm={4} justify="center">
           <CustomRadioBtn
-            label="¿Es la información de contacto del titular?"
+            label="¿Estos datos de contacto son del propietario del vehículo?"
+            color="primary"
             defaultValue="true"
             control={control}
             name="contactInfo"
@@ -209,23 +217,19 @@ const CompanyDataForm = (props) => {
               name="contactName"
               fullWidth
               ref={register}
-              label="Nombre del Contacto"
+              label="Nombre del contacto"
               error={!!errors.contactName}
               helperText={errors?.contactName?.message}
             />
           </GridItem>
         )}
-        <GridItem xs={12}>
-          <h5>Prioridad</h5>
-        </GridItem>
         <GridItem container xs={12} sm={4}>
           <CustomSelect
             options={actualSituation}
             name="actualSituation"
             control={control}
             ref={register}
-            defaultValue={"new"}
-            label="¿Situación Actual?"
+            label="¿Situación actual?"
             error={!!errors.actualSituation}
             helperText={errors?.actualSituation?.message}
           />
@@ -236,7 +240,6 @@ const CompanyDataForm = (props) => {
             name="reqDate"
             control={control}
             ref={register}
-            defaultValue={"today"}
             label="¿Cuándo necesitas la póliza?"
             error={!!errors.reqDate}
             helperText={errors?.reqDate?.message}

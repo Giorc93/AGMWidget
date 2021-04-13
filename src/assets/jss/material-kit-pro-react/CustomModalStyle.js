@@ -32,7 +32,7 @@ const CustomModalStyle = (theme) => ({
   description: {
     textAlign: "center",
     fontSize: "1rem",
-    margin: 0,
+    margin: 10,
   },
   imgFooter: {
     margin: "0 auto",
@@ -51,7 +51,7 @@ const CustomModalStyle = (theme) => ({
       margin: "auto",
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: "80vw",
+      maxWidth: "50vw",
       margin: "auto",
     },
     borderRadius: "6px",

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import TokenDataReducer from './features/TokenData/tokenDataSlice';
 import CitiesListReducer from "./features/QuotationForm/citiesListSlice";
 import BrandsListReducer from "./features/QuotationForm/brandsListSlice";
 import ReferencesListReducer from "./features/QuotationForm/referencesListSlice";
@@ -17,5 +18,6 @@ export default configureStore({
     quotationData: QuotationDataReducer,
     citiesList: CitiesListReducer,
     quotationResult: QuotationResultReducer,
+    tokenData: TokenDataReducer,
   },
 });

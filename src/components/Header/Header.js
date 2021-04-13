@@ -68,7 +68,10 @@ export default function Header(props) {
       <Toolbar className={classes.container}>
         <Button className={classes.title}>
           <Link to="/">
-            <h4>{brand}</h4>
+            <img
+              src={`http://app.agentemotor.com/` + props.logo}
+              height="90%"
+            />
           </Link>
         </Button>
         <Hidden smDown implementation="css" className={classes.hidden}>
@@ -126,6 +129,7 @@ Header.propTypes = {
     "dark",
   ]),
   links: PropTypes.node,
+  logo: PropTypes.string,
   brand: PropTypes.string,
   fixed: PropTypes.bool,
   absolute: PropTypes.bool,

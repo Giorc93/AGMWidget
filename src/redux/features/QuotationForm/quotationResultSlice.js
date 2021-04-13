@@ -1,3 +1,5 @@
+//generación de cotización
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getQuotation = createAsyncThunk(
@@ -19,15 +21,14 @@ export const getQuotation = createAsyncThunk(
       redirect: "follow",
     };
 
-    console.log(quoteData);
-
     return await fetch(
-      "http://api.app.agentemotor.com/insurances/process/create",
+      "https://pacific-dusk-24048.herokuapp.com/insurances/process/create",
       requestOptions
     ).then((response) => response.json());
   }
 );
 
+//carga del objeto JSON devuelto por la API una vez se generan las URL
 export const getJSON = createAsyncThunk(
   "vehicle/getJSONStatus",
   async (jsonUrl) => {
@@ -54,6 +55,10 @@ const initialState = {
     data: "",
     status: "",
   },
+  productDetail: {},
+  attributeGroups: [],
+  totalProducts: [],
+  compareProducts: [],
 };
 
 const quotationResultSlice = createSlice({
@@ -61,6 +66,21 @@ const quotationResultSlice = createSlice({
   initialState,
   reducers: {
     resetQuotationResultState: (state) => initialState,
+    setProductDetail: (state, action) => {
+      state.productDetail = action.payload;
+    },
+    setAttributeGroups: (state, action) => {
+      state.attributeGroups = action.payload;
+    },
+    setTotalProducts: (state, action) => {
+      state.totalProducts = action.payload;
+    },
+    setCompareProducts: (state, action) => {
+      state.compareProducts = action.payload;
+    },
+    rmCompareProducts: (state, action) => {
+      state.compareProducts = state.compareProducts.filter((val) => val !== action.payload);
+    }
   },
   extraReducers: {
     [getQuotation.pending]: (state) => {
@@ -86,11 +106,19 @@ const quotationResultSlice = createSlice({
   },
 });
 
-export const { resetQuotationResultState } = quotationResultSlice.actions;
+export const { resetQuotationResultState, setProductDetail, setAttributeGroups, setTotalProducts, setCompareProducts, rmCompareProducts} = quotationResultSlice.actions;
 
 export const selectQuotationResultURL = (state) =>
   state.quotationResult.urlData;
 export const selectQuotationResultJSON = (state) =>
   state.quotationResult.quotationJSON;
+export const selectProductDetail = (state) =>
+  state.quotationResult.productDetail;
+export const selectAttributeGroups = (state) =>
+  state.quotationResult.attributeGroups;
+export const selectTotalProducts = (state) =>
+  state.quotationResult.totalProducts;
+export const selectCompareProducts = (state) => 
+  state.quotationResult.compareProducts;
 
 export default quotationResultSlice.reducer;

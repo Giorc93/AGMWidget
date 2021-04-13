@@ -63,7 +63,7 @@ export default function SearchResultModal(props) {
             <Close className={classes.modalClose} />
           </Button>
           <h4 className={classes.modalTitle} style={{ textAlign: "center" }}>
-            ¡No te preocupes, te ayudaremos a encontrar tu vehiculo!
+            ¡No te preocupes, te ayudaremos a encontrar tu vehículo!
           </h4>
         </DialogTitle>
         <DialogContent
@@ -71,7 +71,7 @@ export default function SearchResultModal(props) {
           className={classes.modalBody}
         >
           <p style={{ fontSize: "1rem" }}>
-            Puedes encontrar tu vehiculo, cambiando el número de placa o
+            Puedes encontrar tu vehículo, cambiando el número de placa o
             realizando una búsqueda por referencia
           </p>
         </DialogContent>

@@ -1,3 +1,5 @@
+//consulta de listado de referencias por modelo y marca
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 //API Req. using test token
@@ -32,14 +34,14 @@ export const getReferencesList = createAsyncThunk(
     };
 
     return await fetch(
-      "http://api.app.agentemotor.com/insurances/insuranceobject/actions/get",
+      "https://pacific-dusk-24048.herokuapp.com/insurances/insuranceobject/actions/get",
       requestOptions
     ).then((response) => response.json());
   }
 );
 
 const initialState = {
-  data: "",
+  data: [],
   status: "",
 };
 

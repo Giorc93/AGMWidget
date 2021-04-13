@@ -1,23 +1,26 @@
 import React from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
+//core components
+import CustomSelect from "components/CustomForm/CustomSelect";
+import CustomInput from "components/CustomForm/CustomInput";
+import CustomButton from "components/CustomButtons/Button";
+import CustomForm from "components/CustomForm/CustomForm";
+import GridContainer from "components/Grid/GridContainer";
+import GridItem from "components/Grid/GridItem";
+//utils
+//schemas de validadores para emplear con yup cargados desde archivo validators.
 import { idType, idNumber } from "utils/validators";
+//arrays de opciones de seleccción cargado desde archivo inputArray
+import { idTypeArr } from "utils/inputArrays";
+//redux
 import {
   setDocumentData,
   selectDocumentData,
 } from "redux/features/QuotationForm/quotationDataSlice";
-import { idTypeArr } from "utils/inputArrays";
-
-import CustomSelect from "components/CustomForm/CustomSelect";
-import CustomInput from "components/CustomForm/CustomInput";
-import CustomButton from "components/CustomButtons/Button";
-import GridContainer from "components/Grid/GridContainer";
-import GridItem from "components/Grid/GridItem";
-import CustomForm from "components/CustomForm/CustomForm";
 
 const Step2 = (props) => {
   const dispatch = useDispatch();
@@ -43,7 +46,7 @@ const Step2 = (props) => {
     <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <GridContainer justify="center" spacing={2}>
         <GridItem xs={12}>
-          <h3 style={{ textAlign: "center" }}>Número de Documento</h3>
+          <h3 style={{ textAlign: "center" }}>Número de documento del propietario del vehículo</h3>
         </GridItem>
         <GridItem container xs={12} sm={4}>
           <CustomSelect
@@ -62,7 +65,7 @@ const Step2 = (props) => {
             name="idNumber"
             fullWidth
             ref={register}
-            label="Número de Documento"
+            label="Número de documento"
             error={!!errors.idNumber}
             helperText={errors?.idNumber?.message}
             defaultValue={documentData.idNumber}

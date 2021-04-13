@@ -1,3 +1,5 @@
+//consulta de listado de marcas de vehiculos
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getBrandsList = createAsyncThunk(
@@ -25,7 +27,7 @@ export const getBrandsList = createAsyncThunk(
     };
 
     return await fetch(
-      "http://api.app.agentemotor.com/insurances/insuranceobject/actions/get",
+      "https://pacific-dusk-24048.herokuapp.com/insurances/insuranceobject/actions/get",
       requestOptions
     ).then((response) => response.json());
   }

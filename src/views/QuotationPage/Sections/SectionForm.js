@@ -2,15 +2,11 @@ import React from "react";
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-// nodejs library that concatenates classes
-//import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-
-import formStyle from "assets/jss/material-kit-pro-react/views/quotationSections/formStyles";
 
 import Step1 from "./Stepper/Step1";
 import Step2 from "./Stepper/Step2";
@@ -18,19 +14,23 @@ import Step3 from "./Stepper/Step3";
 import Step4 from "./Stepper/Step4";
 import FinalStep from "./Stepper/FinalStep";
 
+//estilos
+import formStyle from "assets/jss/material-kit-pro-react/views/quotationSections/formStyles";
+
 const useStyles = makeStyles(formStyle);
 
 function getSteps() {
   return [
-    "Datos del Vehiculo",
-    "Número de Documento",
-    "Confirma Tu Vehiculo",
-    "Generar Cotización",
+    "Datos del vehículo",
+    "Número de documento",
+    "Confirma tu vehículo",
+    "Información del propietario",
   ];
 }
 
 const SectionForm = () => {
   const classes = useStyles();
+  //estado para el índice del stepper
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
@@ -46,10 +46,9 @@ const SectionForm = () => {
     setActiveStep(stepIndex);
   };
 
-  /*const handleReset = () => {
-    setActiveStep(0);
-  };*/
-
+  /*getStepContent carga el componente correspondiente a cada paso del stepper. 
+  Las funciones handleNext y handleBack son cargadas como props para controlar el paso anterior o siguiente
+  en el formulario.*/
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
@@ -97,6 +96,8 @@ const SectionForm = () => {
         ))}
       </Stepper>
       <div>
+        {/*si el índice del paso actual es igual al número de pasos, cargará el componente final FinalStep 
+          De lo contrario ejecutará la función getStepContent para cargar el componente correspondiente*/}
         {activeStep === getSteps().length ? (
           <GridContainer justify="center" className={classes.container}>
             <GridItem>
